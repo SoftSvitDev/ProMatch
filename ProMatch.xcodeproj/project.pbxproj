@@ -6,36 +6,77 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ED1EEC922FB3688F002B3BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEC892FB3688F002B3BF6 /* Assets.xcassets */; };
+		ED1EEC942FB3688F002B3BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEC8C2FB3688F002B3BF6 /* LaunchScreen.storyboard */; };
+		ED1EEC962FB3688F002B3BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */; };
+		ED1EEC972FB3688F002B3BF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC8F2FB3688F002B3BF6 /* SceneDelegate.swift */; };
+		ED1EEC982FB3688F002B3BF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC902FB3688F002B3BF6 /* ViewController.swift */; };
+		ED1EEC9F2FB36C97002B3BF6 /* CustomTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC9E2FB36C97002B3BF6 /* CustomTabBarVC.swift */; };
+		ED1EECA22FB36CAB002B3BF6 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECA12FB36CAA002B3BF6 /* CustomTabBarView.swift */; };
+		ED1EECA62FB36CEC002B3BF6 /* TeamsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECA52FB36CEC002B3BF6 /* TeamsVC.swift */; };
+		ED1EECA92FB36CFD002B3BF6 /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECA82FB36CFD002B3BF6 /* TeamsView.swift */; };
+		ED1EECAC2FB36D16002B3BF6 /* TournamentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECAB2FB36D16002B3BF6 /* TournamentsVC.swift */; };
+		ED1EECAF2FB36D25002B3BF6 /* TournamentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECAE2FB36D25002B3BF6 /* TournamentsView.swift */; };
+		ED1EECB22FB36D3F002B3BF6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECB12FB36D3F002B3BF6 /* ProfileVC.swift */; };
+		ED1EECB52FB36D4E002B3BF6 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECB42FB36D4E002B3BF6 /* ProfileView.swift */; };
+		ED1EECBA2FB36D8D002B3BF6 /* NewTournamentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECB92FB36D8D002B3BF6 /* NewTournamentVC.swift */; };
+		ED1EECBD2FB36DB2002B3BF6 /* NewTournamentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECBC2FB36DB1002B3BF6 /* NewTournamentView.swift */; };
+		ED1EECC02FB36EAF002B3BF6 /* CreateTeamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECBF2FB36EAE002B3BF6 /* CreateTeamVC.swift */; };
+		ED1EECC32FB36EC8002B3BF6 /* CreateTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECC22FB36EC8002B3BF6 /* CreateTeamView.swift */; };
+		ED1EECC62FB37174002B3BF6 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECC52FB37174002B3BF6 /* OnboardingVC.swift */; };
+		ED1EECC92FB37184002B3BF6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECC82FB37184002B3BF6 /* OnboardingView.swift */; };
+		ED1EECCC2FB371E7002B3BF6 /* PlayerCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECCB2FB371E7002B3BF6 /* PlayerCardVC.swift */; };
+		ED1EECCF2FB371FB002B3BF6 /* PlayerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECCE2FB371FB002B3BF6 /* PlayerCardView.swift */; };
+		ED1EECD22FB372F7002B3BF6 /* AddPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECD12FB372F7002B3BF6 /* AddPlayerVC.swift */; };
+		ED1EECD52FB37307002B3BF6 /* AddPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECD42FB37306002B3BF6 /* AddPlayerView.swift */; };
+		ED1EECDB2FB375D9002B3BF6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = ED1EECDA2FB375D9002B3BF6 /* SnapKit */; };
+		ED1EECDE2FB375FF002B3BF6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = ED1EECDD2FB375FF002B3BF6 /* FirebaseMessaging */; };
+		ED1EECE02FB375FF002B3BF6 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = ED1EECDF2FB375FF002B3BF6 /* FirebaseRemoteConfig */; };
+		ED1EECE22FB3780D002B3BF6 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */; };
+		ED1EECE42FB37F66002B3BF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */; };
+		ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE52FB384FB002B3BF6 /* UIView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		ED1EEC702FB36889002B3BF6 /* ProMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED1EEC892FB3688F002B3BF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED1EEC8A2FB3688F002B3BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED1EEC8B2FB3688F002B3BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ED1EEC8F2FB3688F002B3BF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		ED1EEC902FB3688F002B3BF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ED1EEC9E2FB36C97002B3BF6 /* CustomTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarVC.swift; sourceTree = "<group>"; };
+		ED1EECA12FB36CAA002B3BF6 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		ED1EECA52FB36CEC002B3BF6 /* TeamsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsVC.swift; sourceTree = "<group>"; };
+		ED1EECA82FB36CFD002B3BF6 /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
+		ED1EECAB2FB36D16002B3BF6 /* TournamentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsVC.swift; sourceTree = "<group>"; };
+		ED1EECAE2FB36D25002B3BF6 /* TournamentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentsView.swift; sourceTree = "<group>"; };
+		ED1EECB12FB36D3F002B3BF6 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		ED1EECB42FB36D4E002B3BF6 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		ED1EECB92FB36D8D002B3BF6 /* NewTournamentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTournamentVC.swift; sourceTree = "<group>"; };
+		ED1EECBC2FB36DB1002B3BF6 /* NewTournamentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTournamentView.swift; sourceTree = "<group>"; };
+		ED1EECBF2FB36EAE002B3BF6 /* CreateTeamVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeamVC.swift; sourceTree = "<group>"; };
+		ED1EECC22FB36EC8002B3BF6 /* CreateTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeamView.swift; sourceTree = "<group>"; };
+		ED1EECC52FB37174002B3BF6 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		ED1EECC82FB37184002B3BF6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		ED1EECCB2FB371E7002B3BF6 /* PlayerCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCardVC.swift; sourceTree = "<group>"; };
+		ED1EECCE2FB371FB002B3BF6 /* PlayerCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCardView.swift; sourceTree = "<group>"; };
+		ED1EECD12FB372F7002B3BF6 /* AddPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerVC.swift; sourceTree = "<group>"; };
+		ED1EECD42FB37306002B3BF6 /* AddPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerView.swift; sourceTree = "<group>"; };
+		ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
+		ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ED1EECE52FB384FB002B3BF6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		ED1EEC822FB3688B002B3BF6 /* Exceptions for "ProMatch" folder in "ProMatch" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = ED1EEC6F2FB36889002B3BF6 /* ProMatch */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		ED1EEC722FB36889002B3BF6 /* ProMatch */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				ED1EEC822FB3688B002B3BF6 /* Exceptions for "ProMatch" folder in "ProMatch" target */,
-			);
-			path = ProMatch;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		ED1EEC6D2FB36889002B3BF6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED1EECE02FB375FF002B3BF6 /* FirebaseRemoteConfig in Frameworks */,
+				ED1EECDE2FB375FF002B3BF6 /* FirebaseMessaging in Frameworks */,
+				ED1EECDB2FB375D9002B3BF6 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +86,7 @@
 		ED1EEC672FB36889002B3BF6 = {
 			isa = PBXGroup;
 			children = (
-				ED1EEC722FB36889002B3BF6 /* ProMatch */,
+				ED1EEC912FB3688F002B3BF6 /* ProMatch */,
 				ED1EEC712FB36889002B3BF6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +97,240 @@
 				ED1EEC702FB36889002B3BF6 /* ProMatch.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		ED1EEC912FB3688F002B3BF6 /* ProMatch */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */,
+				ED1EEC992FB36891002B3BF6 /* App */,
+				ED1EEC9B2FB36A64002B3BF6 /* Sources */,
+				ED1EEC9A2FB36A5F002B3BF6 /* Modules */,
+				ED1EEC9C2FB36A6D002B3BF6 /* Resources */,
+				ED1EEC8A2FB3688F002B3BF6 /* Info.plist */,
+				ED1EEC902FB3688F002B3BF6 /* ViewController.swift */,
+			);
+			path = ProMatch;
+			sourceTree = "<group>";
+		};
+		ED1EEC992FB36891002B3BF6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */,
+				ED1EEC8F2FB3688F002B3BF6 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		ED1EEC9A2FB36A5F002B3BF6 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECD02FB372F1002B3BF6 /* AddPlayer */,
+				ED1EECCA2FB371E3002B3BF6 /* PlayerCard */,
+				ED1EECC42FB3716E002B3BF6 /* Onboarding */,
+				ED1EECBE2FB36EA8002B3BF6 /* CreateTeam */,
+				ED1EECB62FB36D83002B3BF6 /* NewTournament */,
+				ED1EECB02FB36D3B002B3BF6 /* Profile */,
+				ED1EECAA2FB36D11002B3BF6 /* Tournaments */,
+				ED1EECA42FB36CE4002B3BF6 /* Teams */,
+				ED1EEC9D2FB36C92002B3BF6 /* TabBar */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		ED1EEC9B2FB36A64002B3BF6 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECD82FB3753F002B3BF6 /* Services */,
+				ED1EECD62FB3751F002B3BF6 /* Extensions */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		ED1EEC9C2FB36A6D002B3BF6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EEC8C2FB3688F002B3BF6 /* LaunchScreen.storyboard */,
+				ED1EEC892FB3688F002B3BF6 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		ED1EEC9D2FB36C92002B3BF6 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECA02FB36CA7002B3BF6 /* Views */,
+				ED1EEC9E2FB36C97002B3BF6 /* CustomTabBarVC.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		ED1EECA02FB36CA7002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECA32FB36CDB002B3BF6 /* Subviews */,
+				ED1EECA12FB36CAA002B3BF6 /* CustomTabBarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECA32FB36CDB002B3BF6 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		ED1EECA42FB36CE4002B3BF6 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECA72FB36CF9002B3BF6 /* Views */,
+				ED1EECA52FB36CEC002B3BF6 /* TeamsVC.swift */,
+			);
+			path = Teams;
+			sourceTree = "<group>";
+		};
+		ED1EECA72FB36CF9002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECA82FB36CFD002B3BF6 /* TeamsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECAA2FB36D11002B3BF6 /* Tournaments */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECAD2FB36D22002B3BF6 /* Views */,
+				ED1EECAB2FB36D16002B3BF6 /* TournamentsVC.swift */,
+			);
+			path = Tournaments;
+			sourceTree = "<group>";
+		};
+		ED1EECAD2FB36D22002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECAE2FB36D25002B3BF6 /* TournamentsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECB02FB36D3B002B3BF6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECB32FB36D4C002B3BF6 /* Views */,
+				ED1EECB12FB36D3F002B3BF6 /* ProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		ED1EECB32FB36D4C002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECB42FB36D4E002B3BF6 /* ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECB62FB36D83002B3BF6 /* NewTournament */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECBB2FB36DAE002B3BF6 /* Views */,
+				ED1EECB92FB36D8D002B3BF6 /* NewTournamentVC.swift */,
+			);
+			path = NewTournament;
+			sourceTree = "<group>";
+		};
+		ED1EECBB2FB36DAE002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECBC2FB36DB1002B3BF6 /* NewTournamentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECBE2FB36EA8002B3BF6 /* CreateTeam */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECC12FB36EC5002B3BF6 /* Views */,
+				ED1EECBF2FB36EAE002B3BF6 /* CreateTeamVC.swift */,
+			);
+			path = CreateTeam;
+			sourceTree = "<group>";
+		};
+		ED1EECC12FB36EC5002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECC22FB36EC8002B3BF6 /* CreateTeamView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECC42FB3716E002B3BF6 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECC72FB37181002B3BF6 /* Views */,
+				ED1EECC52FB37174002B3BF6 /* OnboardingVC.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		ED1EECC72FB37181002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECC82FB37184002B3BF6 /* OnboardingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECCA2FB371E3002B3BF6 /* PlayerCard */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECCD2FB371F7002B3BF6 /* Views */,
+				ED1EECCB2FB371E7002B3BF6 /* PlayerCardVC.swift */,
+			);
+			path = PlayerCard;
+			sourceTree = "<group>";
+		};
+		ED1EECCD2FB371F7002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECCE2FB371FB002B3BF6 /* PlayerCardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECD02FB372F1002B3BF6 /* AddPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECD32FB37303002B3BF6 /* Views */,
+				ED1EECD12FB372F7002B3BF6 /* AddPlayerVC.swift */,
+			);
+			path = AddPlayer;
+			sourceTree = "<group>";
+		};
+		ED1EECD32FB37303002B3BF6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECD42FB37306002B3BF6 /* AddPlayerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ED1EECD62FB3751F002B3BF6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECE52FB384FB002B3BF6 /* UIView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		ED1EECD82FB3753F002B3BF6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -73,11 +348,11 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				ED1EEC722FB36889002B3BF6 /* ProMatch */,
-			);
 			name = ProMatch;
 			packageProductDependencies = (
+				ED1EECDA2FB375D9002B3BF6 /* SnapKit */,
+				ED1EECDD2FB375FF002B3BF6 /* FirebaseMessaging */,
+				ED1EECDF2FB375FF002B3BF6 /* FirebaseRemoteConfig */,
 			);
 			productName = ProMatch;
 			productReference = ED1EEC702FB36889002B3BF6 /* ProMatch.app */;
@@ -107,6 +382,10 @@
 			);
 			mainGroup = ED1EEC672FB36889002B3BF6;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ED1EECD92FB375D9002B3BF6 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				ED1EECDC2FB375FF002B3BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ED1EEC712FB36889002B3BF6 /* Products */;
 			projectDirPath = "";
@@ -122,6 +401,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED1EEC922FB3688F002B3BF6 /* Assets.xcassets in Resources */,
+				ED1EEC942FB3688F002B3BF6 /* LaunchScreen.storyboard in Resources */,
+				ED1EECE42FB37F66002B3BF6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,10 +414,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED1EECA62FB36CEC002B3BF6 /* TeamsVC.swift in Sources */,
+				ED1EEC962FB3688F002B3BF6 /* AppDelegate.swift in Sources */,
+				ED1EECC02FB36EAF002B3BF6 /* CreateTeamVC.swift in Sources */,
+				ED1EECAC2FB36D16002B3BF6 /* TournamentsVC.swift in Sources */,
+				ED1EECAF2FB36D25002B3BF6 /* TournamentsView.swift in Sources */,
+				ED1EECC62FB37174002B3BF6 /* OnboardingVC.swift in Sources */,
+				ED1EECD22FB372F7002B3BF6 /* AddPlayerVC.swift in Sources */,
+				ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */,
+				ED1EECE22FB3780D002B3BF6 /* RemoteConfigService.swift in Sources */,
+				ED1EECA92FB36CFD002B3BF6 /* TeamsView.swift in Sources */,
+				ED1EECCF2FB371FB002B3BF6 /* PlayerCardView.swift in Sources */,
+				ED1EECD52FB37307002B3BF6 /* AddPlayerView.swift in Sources */,
+				ED1EECC32FB36EC8002B3BF6 /* CreateTeamView.swift in Sources */,
+				ED1EECA22FB36CAB002B3BF6 /* CustomTabBarView.swift in Sources */,
+				ED1EECBA2FB36D8D002B3BF6 /* NewTournamentVC.swift in Sources */,
+				ED1EECB22FB36D3F002B3BF6 /* ProfileVC.swift in Sources */,
+				ED1EECC92FB37184002B3BF6 /* OnboardingView.swift in Sources */,
+				ED1EECCC2FB371E7002B3BF6 /* PlayerCardVC.swift in Sources */,
+				ED1EECB52FB36D4E002B3BF6 /* ProfileView.swift in Sources */,
+				ED1EEC972FB3688F002B3BF6 /* SceneDelegate.swift in Sources */,
+				ED1EECBD2FB36DB2002B3BF6 /* NewTournamentView.swift in Sources */,
+				ED1EEC9F2FB36C97002B3BF6 /* CustomTabBarVC.swift in Sources */,
+				ED1EEC982FB3688F002B3BF6 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		ED1EEC8C2FB3688F002B3BF6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED1EEC8B2FB3688F002B3BF6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		ED1EEC842FB3688B002B3BF6 /* Debug */ = {
@@ -150,9 +466,9 @@
 				INFOPLIST_FILE = ProMatch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -161,12 +477,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.andreichenko.ProMatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -182,9 +502,9 @@
 				INFOPLIST_FILE = ProMatch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -193,12 +513,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.andreichenko.ProMatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -345,6 +669,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ED1EECD92FB375D9002B3BF6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		ED1EECDC2FB375FF002B3BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.13.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ED1EECDA2FB375D9002B3BF6 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1EECD92FB375D9002B3BF6 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		ED1EECDD2FB375FF002B3BF6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1EECDC2FB375FF002B3BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		ED1EECDF2FB375FF002B3BF6 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1EECDC2FB375FF002B3BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ED1EEC682FB36889002B3BF6 /* Project object */;
 }
