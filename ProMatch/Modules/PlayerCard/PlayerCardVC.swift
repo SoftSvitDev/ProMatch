@@ -3,10 +3,10 @@ import SnapKit
 
 final class PlayerCardViewController: UIViewController {
     private var playerCardView: PlayerCardView { view as! PlayerCardView }
-    private let team: Team
+    private let teamId: UUID
 
-    init(team: Team) {
-        self.team = team
+    init(teamId: UUID) {
+        self.teamId = teamId
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) { fatalError() }
@@ -15,29 +15,74 @@ final class PlayerCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
         playerCardView.backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         playerCardView.addButton.addTarget(self, action: #selector(addPlayer), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh),
+                                               name: .teamsDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh),
+                                               name: .tournamentsDidChange, object: nil)
     }
 
-    private func configure() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
+    }
+
+    @objc private func refresh() {
+        guard let team = DataStore.shared.team(id: teamId) else { return }
+        configure(team: team)
+    }
+
+    private func configure(team: Team) {
         playerCardView.nameLabel.text = team.name
         let foundedText = team.foundedYear.map { " · Est. \($0)" } ?? ""
         playerCardView.subtitleLabel.text = team.city + foundedText
-        if let logoLabel = playerCardView.logoView.subviews.first as? UILabel {
+        let logoImage = DataStore.shared.teamLogo(for: team)
+        if let imageView = playerCardView.logoView.viewWithTag(99) as? UIImageView {
+            imageView.image = logoImage
+            imageView.isHidden = (logoImage == nil)
+        }
+        if let logoLabel = playerCardView.logoView.subviews.compactMap({ $0 as? UILabel }).first {
             logoLabel.text = team.initials
+            logoLabel.isHidden = (logoImage != nil)
         }
         playerCardView.logoView.backgroundColor = team.color
-        playerCardView.winsBox.valueLabel.text = "\(team.wins)"
-        playerCardView.drawsBox.valueLabel.text = "\(team.draws)"
-        playerCardView.lossesBox.valueLabel.text = "\(team.losses)"
-        playerCardView.playerCountLabel.text = "\(team.players.count) players"
+        playerCardView.headerGradient.colors = [
+            team.color,
+            team.color.adjusted(brightness: 0.35)
+        ]
+
+        let record = team.record(in: DataStore.shared.tournaments)
+        playerCardView.winsBox.valueLabel.text = "\(record.wins)"
+        playerCardView.drawsBox.valueLabel.text = "\(record.draws)"
+        playerCardView.lossesBox.valueLabel.text = "\(record.losses)"
+        playerCardView.playerCountLabel.text = "\(team.players.count) \(team.players.count == 1 ? "player" : "players")"
 
         playerCardView.playersStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for p in team.players {
-            let row = PlayerRowView(player: p)
-            playerCardView.playersStack.addArrangedSubview(row)
+        if team.players.isEmpty {
+            playerCardView.playersStack.addArrangedSubview(makeEmptyState())
+        } else {
+            for p in team.players {
+                let row = PlayerRowView(player: p)
+                playerCardView.playersStack.addArrangedSubview(row)
+            }
         }
+    }
+
+    private func makeEmptyState() -> UIView {
+        let v = UIView()
+        let l = UILabel()
+        l.text = "No players yet — tap + Add to start your roster"
+        l.font = Theme.Font.regular(13)
+        l.textColor = Theme.Color.textSecondary
+        l.textAlignment = .center
+        l.numberOfLines = 0
+        v.addSubview(l)
+        l.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(40)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        return v
     }
 
     @objc private func back() {
@@ -45,7 +90,15 @@ final class PlayerCardViewController: UIViewController {
     }
 
     @objc private func addPlayer() {
-        let vc = AddPlayerViewController()
+        let vc = AddPlayerViewController(teamId: teamId)
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension UIColor {
+    func adjusted(brightness: CGFloat) -> UIColor {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return UIColor(hue: h, saturation: s, brightness: max(0, min(1, b * brightness)), alpha: a)
     }
 }

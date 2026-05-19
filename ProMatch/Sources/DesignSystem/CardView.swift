@@ -16,7 +16,7 @@ final class NavBarView: UIView {
     let backButton: UIButton = {
         let b = UIButton(type: .system)
         b.setImage(UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold)), for: .normal)
-        b.tintColor = .white
+        b.tintColor = Theme.Color.textPrimary
         b.backgroundColor = Theme.Color.surface
         b.layer.cornerRadius = 18
         return b
@@ -24,12 +24,12 @@ final class NavBarView: UIView {
     let titleLabel: UILabel = {
         let l = UILabel()
         l.font = Theme.Font.bold(20)
-        l.textColor = .white
+        l.textColor = Theme.Color.textPrimary
         return l
     }()
     let trailingButton: UIButton = {
         let b = UIButton(type: .system)
-        b.tintColor = .white
+        b.tintColor = Theme.Color.textPrimary
         b.isHidden = true
         return b
     }()
@@ -70,6 +70,7 @@ final class NavBarView: UIView {
 
 final class TeamBadge: UIView {
     let label = UILabel()
+    let imageView = UIImageView()
     init(initials: String, color: UIColor, size: CGFloat = 44, fontSize: CGFloat = 18) {
         super.init(frame: .zero)
         backgroundColor = color
@@ -79,13 +80,23 @@ final class TeamBadge: UIView {
         label.textColor = .white
         label.font = Theme.Font.bold(fontSize)
         label.textAlignment = .center
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.isHidden = true
+        addSubview(imageView)
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: centerXAnchor),
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
             widthAnchor.constraint(equalToConstant: size),
             heightAnchor.constraint(equalToConstant: size),
+
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     required init?(coder: NSCoder) { fatalError() }

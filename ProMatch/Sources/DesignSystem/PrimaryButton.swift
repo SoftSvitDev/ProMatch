@@ -63,8 +63,8 @@ final class PrimaryButton: UIButton {
             alpha = 1.0
         case .secondary:
             backgroundColor = Theme.Color.surface
-            setTitleColor(.white, for: .normal)
-            trailingIcon.tintColor = .white
+            setTitleColor(Theme.Color.textPrimary, for: .normal)
+            trailingIcon.tintColor = Theme.Color.textPrimary
             isUserInteractionEnabled = true
             alpha = 1.0
         case .disabled:

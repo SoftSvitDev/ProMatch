@@ -42,6 +42,12 @@
 		ED1EECE22FB3780D002B3BF6 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */; };
 		ED1EECE42FB37F66002B3BF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */; };
 		ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE52FB384FB002B3BF6 /* UIView.swift */; };
+		F10582A383FE56F186667416 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8740F08E98596A9330797B /* DataStore.swift */; };
+		A73CD92E36CF50C883C0839A /* UIImage+Logo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */; };
+		A8B156F758025AF982ACC922 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */; };
+		DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */; };
+		E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */; };
+		BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +85,12 @@
 		ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED1EECE52FB384FB002B3BF6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		CE8740F08E98596A9330797B /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Logo.swift"; sourceTree = "<group>"; };
+		1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryVC.swift; sourceTree = "<group>"; };
+		08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryView.swift; sourceTree = "<group>"; };
+		93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +176,8 @@
 				ED1EECAA2FB36D11002B3BF6 /* Tournaments */,
 				ED1EECA42FB36CE4002B3BF6 /* Teams */,
 				ED1EEC9D2FB36C92002B3BF6 /* TabBar */,
+				CD871F5946735EE5880A2810 /* ScoreEntry */,
+				19283F142C2F54FC8B6434A6 /* Splash */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -355,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				ED1EECE52FB384FB002B3BF6 /* UIView.swift */,
+				668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -363,8 +378,35 @@
 			isa = PBXGroup;
 			children = (
 				ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */,
+				CE8740F08E98596A9330797B /* DataStore.swift */,
+				1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CD871F5946735EE5880A2810 /* ScoreEntry */ = {
+			isa = PBXGroup;
+			children = (
+				3F0ED185B9DF59738F104EF0 /* Views */,
+				CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */,
+			);
+			path = ScoreEntry;
+			sourceTree = "<group>";
+		};
+		3F0ED185B9DF59738F104EF0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19283F142C2F54FC8B6434A6 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -477,6 +519,12 @@
 				7627F0A40DE85BA6AC5B207E /* Models.swift in Sources */,
 				AD5F490976B9516A9046DFFE /* SoccerBallView.swift in Sources */,
 				3F0405E49A6D55D3B48F8E8D /* TournamentDetailVC.swift in Sources */,
+				F10582A383FE56F186667416 /* DataStore.swift in Sources */,
+				A73CD92E36CF50C883C0839A /* UIImage+Logo.swift in Sources */,
+				A8B156F758025AF982ACC922 /* SettingsStore.swift in Sources */,
+				DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */,
+				E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */,
+				BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

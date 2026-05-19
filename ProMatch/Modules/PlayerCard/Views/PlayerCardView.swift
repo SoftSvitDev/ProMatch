@@ -29,8 +29,16 @@ final class PlayerCardView: UIView {
         let v = UIView()
         v.backgroundColor = UIColor(hex: 0xEF4444)
         v.layer.cornerRadius = 14
+        v.clipsToBounds = true
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.isHidden = true
+        iv.tag = 99
+        v.addSubview(iv)
+        iv.snp.makeConstraints { $0.edges.equalToSuperview() }
         let l = UILabel()
-        l.text = "FP"
+        l.text = ""
         l.textColor = .white
         l.font = Theme.Font.bold(20)
         v.addSubview(l)

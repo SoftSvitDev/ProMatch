@@ -11,7 +11,7 @@ final class LabeledTextField: UIView {
     let textField: PaddedTextField = {
         let tf = PaddedTextField()
         tf.font = Theme.Font.regular(15)
-        tf.textColor = .white
+        tf.textColor = Theme.Color.textPrimary
         tf.backgroundColor = Theme.Color.inputBackground
         tf.layer.cornerRadius = Theme.Metric.inputRadius
         tf.attributedPlaceholder = NSAttributedString(

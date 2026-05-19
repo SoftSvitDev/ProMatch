@@ -97,6 +97,18 @@ final class FormatOptionRow: UIControl {
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
     let radio = UIView()
+    var format: Tournament.Format = .roundRobin
+    var isOn: Bool = false {
+        didSet {
+            if isOn {
+                radio.backgroundColor = Theme.Color.accent
+                radio.layer.borderColor = Theme.Color.accent.cgColor
+            } else {
+                radio.backgroundColor = .clear
+                radio.layer.borderColor = Theme.Color.textTertiary.cgColor
+            }
+        }
+    }
 
     init(symbol: String, title: String, subtitle: String) {
         super.init(frame: .zero)
@@ -107,7 +119,7 @@ final class FormatOptionRow: UIControl {
         iconView.contentMode = .scaleAspectFit
         titleLabel.text = title
         titleLabel.font = Theme.Font.bold(15)
-        titleLabel.textColor = .white
+        titleLabel.textColor = Theme.Color.textPrimary
         subtitleLabel.text = subtitle
         subtitleLabel.font = Theme.Font.regular(12)
         subtitleLabel.textColor = Theme.Color.textSecondary
@@ -140,6 +152,7 @@ final class FormatOptionRow: UIControl {
 }
 
 final class TeamSelectRow: UIControl {
+    var teamId: UUID?
     let badge: TeamBadge
     let nameLabel = UILabel()
     let detailLabel = UILabel()
@@ -147,6 +160,7 @@ final class TeamSelectRow: UIControl {
     var isOn = false { didSet { updateRadio() } }
 
     init(team: Team) {
+        self.teamId = team.id
         badge = TeamBadge(initials: team.initials, color: team.color, size: 32, fontSize: 13)
         super.init(frame: .zero)
         backgroundColor = Theme.Color.surface
@@ -154,7 +168,7 @@ final class TeamSelectRow: UIControl {
 
         nameLabel.text = team.name
         nameLabel.font = Theme.Font.bold(15)
-        nameLabel.textColor = .white
+        nameLabel.textColor = Theme.Color.textPrimary
 
         detailLabel.text = "\(team.players.count) players · \(team.city)"
         detailLabel.font = Theme.Font.regular(12)
@@ -184,11 +198,9 @@ final class TeamSelectRow: UIControl {
             make.centerY.equalToSuperview()
             make.size.equalTo(20)
         }
-        addTarget(self, action: #selector(toggle), for: .touchUpInside)
     }
     required init?(coder: NSCoder) { fatalError() }
 
-    @objc private func toggle() { isOn.toggle() }
     private func updateRadio() {
         if isOn {
             radio.backgroundColor = Theme.Color.accent
@@ -212,7 +224,7 @@ final class RuleStepperRow: UIView {
 
         titleLabel.text = title
         titleLabel.font = Theme.Font.regular(14)
-        titleLabel.textColor = .white
+        titleLabel.textColor = Theme.Color.textPrimary
 
         let valueWrap = UIView()
         valueWrap.backgroundColor = .clear
@@ -237,6 +249,7 @@ final class RuleStepperRow: UIView {
 }
 
 final class TiebreakerRow: UIControl {
+    var tiebreaker: Tournament.Tiebreaker?
     let titleLabel = UILabel()
     let check = UIImageView()
     var isSelected2: Bool = false {
@@ -245,7 +258,7 @@ final class TiebreakerRow: UIControl {
             backgroundColor = isSelected2 ? Theme.Color.accent.withAlphaComponent(0.18) : Theme.Color.surface
             layer.borderColor = isSelected2 ? Theme.Color.accent.cgColor : UIColor.clear.cgColor
             layer.borderWidth = isSelected2 ? 1.5 : 0
-            titleLabel.textColor = isSelected2 ? Theme.Color.accent : .white
+            titleLabel.textColor = isSelected2 ? Theme.Color.accent : Theme.Color.textPrimary
         }
     }
 
@@ -255,7 +268,7 @@ final class TiebreakerRow: UIControl {
         layer.cornerRadius = Theme.Metric.cardRadius
         titleLabel.text = title
         titleLabel.font = Theme.Font.semibold(14)
-        titleLabel.textColor = .white
+        titleLabel.textColor = Theme.Color.textPrimary
         check.image = UIImage(systemName: "checkmark")
         check.tintColor = Theme.Color.accent
         check.isHidden = true
@@ -292,7 +305,7 @@ final class ReviewSummaryView: UIView {
             let key = UILabel()
             key.text = k; key.font = Theme.Font.regular(13); key.textColor = Theme.Color.textSecondary
             let val = UILabel()
-            val.text = v; val.font = Theme.Font.semibold(13); val.textColor = .white; val.textAlignment = .right
+            val.text = v; val.font = Theme.Font.semibold(13); val.textColor = Theme.Color.textPrimary; val.textAlignment = .right
             row.addSubview(key)
             row.addSubview(val)
             key.snp.makeConstraints { make in

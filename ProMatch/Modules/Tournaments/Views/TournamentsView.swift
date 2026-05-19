@@ -5,7 +5,7 @@ final class TournamentsView: UIView {
     let titleLabel: UILabel = {
         let l = UILabel()
         l.font = Theme.Font.bold(28)
-        l.textColor = .white
+        l.textColor = Theme.Color.textPrimary
         l.text = "Tournaments"
         return l
     }()
@@ -13,7 +13,7 @@ final class TournamentsView: UIView {
     let historyButton: UIButton = {
         let b = UIButton(type: .system)
         b.setImage(UIImage(systemName: "clock", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)), for: .normal)
-        b.tintColor = .white
+        b.tintColor = Theme.Color.textPrimary
         b.backgroundColor = Theme.Color.surface
         b.layer.cornerRadius = 18
         return b
@@ -42,6 +42,40 @@ final class TournamentsView: UIView {
         return b
     }()
 
+    let emptyState: UIView = {
+        let v = UIView()
+        v.isHidden = true
+        let icon = UIImageView(image: UIImage(systemName: "trophy"))
+        icon.tintColor = Theme.Color.textTertiary
+        icon.contentMode = .scaleAspectFit
+        let title = UILabel()
+        title.text = "No tournaments yet"
+        title.font = Theme.Font.bold(17)
+        title.textColor = Theme.Color.textPrimary
+        title.textAlignment = .center
+        let subtitle = UILabel()
+        subtitle.text = "Tap + to set up your first tournament"
+        subtitle.font = Theme.Font.regular(13)
+        subtitle.textColor = Theme.Color.textSecondary
+        subtitle.textAlignment = .center
+        v.addSubview(icon); v.addSubview(title); v.addSubview(subtitle)
+        icon.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.size.equalTo(40)
+        }
+        title.snp.makeConstraints { make in
+            make.top.equalTo(icon.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+        }
+        subtitle.snp.makeConstraints { make in
+            make.top.equalTo(title.snp.bottom).offset(4)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        return v
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Theme.Color.background
@@ -51,7 +85,7 @@ final class TournamentsView: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     private func setupUI() {
-        [titleLabel, historyButton, scrollView, addButton].forEach { addSubview($0) }
+        [titleLabel, historyButton, scrollView, emptyState, addButton].forEach { addSubview($0) }
         scrollView.addSubview(contentStack)
     }
 
@@ -79,6 +113,10 @@ final class TournamentsView: UIView {
             make.bottom.equalTo(safeBottom).offset(-24)
             make.size.equalTo(56)
         }
+        emptyState.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-40)
+        }
     }
 }
 
@@ -95,6 +133,7 @@ final class SectionLabelView: UILabel {
 }
 
 final class TournamentRowView: UIControl {
+    var tournamentId: UUID?
     let nameLabel = UILabel()
     let formatLabel = UILabel()
     let formatIcon = UIImageView()
@@ -131,7 +170,7 @@ final class TournamentRowView: UIControl {
 
         nameLabel.text = tournament.name
         nameLabel.font = Theme.Font.bold(17)
-        nameLabel.textColor = .white
+        nameLabel.textColor = Theme.Color.textPrimary
 
         formatLabel.text = tournament.format.rawValue
         formatLabel.font = Theme.Font.regular(13)
@@ -147,13 +186,13 @@ final class TournamentRowView: UIControl {
         formatIcon.tintColor = Theme.Color.textSecondary
         formatIcon.contentMode = .scaleAspectFit
 
-        teamCountLabel.text = "\(tournament.teamCount) teams"
+        teamCountLabel.text = "\(tournament.teamIds.count) teams"
         teamCountLabel.font = Theme.Font.regular(12)
         teamCountLabel.textColor = Theme.Color.textSecondary
         teamCountIcon.tintColor = Theme.Color.textSecondary
         teamCountIcon.contentMode = .scaleAspectFit
 
-        dateLabel.text = tournament.date
+        dateLabel.text = tournament.dateText
         dateLabel.font = Theme.Font.regular(12)
         dateLabel.textColor = Theme.Color.textSecondary
         dateIcon.tintColor = Theme.Color.textSecondary

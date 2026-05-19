@@ -26,11 +26,32 @@ final class AddPlayerView: UIView {
     let footSegment = SegmentedTabsView(items: ["Left", "Right", "Both"])
 
     let birthLabel = SectionHeaderLabel("Birth Date")
-    let birthField: UIView = {
-        let v = UIView()
-        v.backgroundColor = Theme.Color.inputBackground
-        v.layer.cornerRadius = Theme.Metric.inputRadius
-        return v
+    let birthFieldLabel: UILabel = {
+        let l = UILabel()
+        l.text = "Select date"
+        l.font = Theme.Font.regular(15)
+        l.textColor = Theme.Color.textTertiary
+        return l
+    }()
+    lazy var birthFieldButton: UIControl = {
+        let b = UIControl()
+        b.backgroundColor = Theme.Color.inputBackground
+        b.layer.cornerRadius = Theme.Metric.inputRadius
+        b.addSubview(birthFieldLabel)
+        birthFieldLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(14)
+            make.centerY.equalToSuperview()
+        }
+        let chevron = UIImageView(image: UIImage(systemName: "calendar"))
+        chevron.tintColor = Theme.Color.textTertiary
+        chevron.contentMode = .scaleAspectFit
+        b.addSubview(chevron)
+        chevron.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-14)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(16)
+        }
+        return b
     }()
 
     let heightField = LabeledTextField(title: "Height (cm)", placeholder: "182", keyboard: .numberPad)
@@ -54,7 +75,7 @@ final class AddPlayerView: UIView {
         scrollView.addSubview(contentView)
         [firstNameField, lastNameField, nicknameField,
          jerseyLabel, jerseyStepper, positionLabel, positionGrid,
-         footLabel, footSegment, birthLabel, birthField,
+         footLabel, footSegment, birthLabel, birthFieldButton,
          heightField, weightField].forEach { contentView.addSubview($0) }
     }
 
@@ -117,13 +138,13 @@ final class AddPlayerView: UIView {
             make.top.equalTo(footSegment.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(24)
         }
-        birthField.snp.makeConstraints { make in
+        birthFieldButton.snp.makeConstraints { make in
             make.top.equalTo(birthLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(24)
             make.height.equalTo(48)
         }
         heightField.snp.makeConstraints { make in
-            make.top.equalTo(birthField.snp.bottom).offset(16)
+            make.top.equalTo(birthFieldButton.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(24)
             make.width.equalTo(weightField)
         }
@@ -145,7 +166,13 @@ final class NumberStepper: UIView {
     let minusButton = UIButton(type: .system)
     let plusButton = UIButton(type: .system)
     let valueLabel = UILabel()
-    private(set) var value: Int = 1 { didSet { update() } }
+    var onChange: ((Int) -> Void)?
+    private(set) var value: Int = 1 {
+        didSet {
+            update()
+            onChange?(value)
+        }
+    }
 
     init(initial: Int) {
         super.init(frame: .zero)
@@ -156,8 +183,8 @@ final class NumberStepper: UIView {
 
         minusButton.setImage(UIImage(systemName: "minus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .bold)), for: .normal)
         plusButton.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .bold)), for: .normal)
-        minusButton.tintColor = .white
-        plusButton.tintColor = .white
+        minusButton.tintColor = Theme.Color.textPrimary
+        plusButton.tintColor = Theme.Color.textPrimary
         valueLabel.textColor = Theme.Color.accent
         valueLabel.font = Theme.Font.bold(16)
         valueLabel.textAlignment = .center
@@ -185,8 +212,8 @@ final class NumberStepper: UIView {
     }
     required init?(coder: NSCoder) { fatalError() }
 
-    @objc private func minus() { if value > 1 { value -= 1 } }
-    @objc private func plus() { if value < 99 { value += 1 } }
+    @objc private func minus() { if value > 0 { value -= 1 } }
+    @objc private func plus() { if value < 999 { value += 1 } }
     private func update() { valueLabel.text = "\(value)" }
 }
 
@@ -204,7 +231,9 @@ final class PositionGrid: UIView {
         s.spacing = 6
         return s
     }()
-    private var selected: Position?
+    private var chips: [(Position, PositionChip)] = []
+    private(set) var selectedPosition: Position?
+    var onSelect: ((Position) -> Void)?
 
     init() {
         super.init(frame: .zero)
@@ -232,17 +261,43 @@ final class PositionGrid: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     private func makeChip(_ p: Position) -> UIView {
-        let v = UIView()
-        v.backgroundColor = Theme.Color.surface
-        v.layer.cornerRadius = 8
-        let l = UILabel()
-        l.text = p.rawValue
-        l.font = Theme.Font.bold(12)
-        l.textColor = Theme.Color.textSecondary
-        l.textAlignment = .center
-        v.addSubview(l)
-        l.snp.makeConstraints { $0.center.equalToSuperview() }
-        v.snp.makeConstraints { $0.width.equalTo(48) }
-        return v
+        let chip = PositionChip(position: p)
+        chip.addTarget(self, action: #selector(chipTapped(_:)), for: .touchUpInside)
+        chip.snp.makeConstraints { $0.width.equalTo(48) }
+        chips.append((p, chip))
+        return chip
     }
+
+    @objc private func chipTapped(_ sender: PositionChip) {
+        selectedPosition = sender.position
+        for (p, chip) in chips { chip.isSelected2 = (p == sender.position) }
+        onSelect?(sender.position)
+    }
+}
+
+final class PositionChip: UIControl {
+    let position: Position
+    private let label = UILabel()
+    var isSelected2: Bool = false {
+        didSet {
+            backgroundColor = isSelected2 ? Theme.Color.accent.withAlphaComponent(0.18) : Theme.Color.surface
+            label.textColor = isSelected2 ? Theme.Color.accent : Theme.Color.textSecondary
+            layer.borderColor = isSelected2 ? Theme.Color.accent.cgColor : UIColor.clear.cgColor
+            layer.borderWidth = isSelected2 ? 1.0 : 0
+        }
+    }
+    init(position: Position) {
+        self.position = position
+        super.init(frame: .zero)
+        backgroundColor = Theme.Color.surface
+        layer.cornerRadius = 8
+        label.text = position.rawValue
+        label.font = Theme.Font.bold(12)
+        label.textColor = Theme.Color.textSecondary
+        label.textAlignment = .center
+        addSubview(label)
+        label.snp.makeConstraints { $0.center.equalToSuperview() }
+        label.isUserInteractionEnabled = false
+    }
+    required init?(coder: NSCoder) { fatalError() }
 }

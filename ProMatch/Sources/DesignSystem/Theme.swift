@@ -2,19 +2,19 @@ import UIKit
 
 enum Theme {
     enum Color {
-        static let background = UIColor(hex: 0x0E0E10)
-        static let surface = UIColor(hex: 0x1A1A20)
-        static let surfaceElevated = UIColor(hex: 0x222229)
-        static let inputBackground = UIColor(hex: 0x1F1F26)
-        static let stroke = UIColor(hex: 0x2A2A2A)
-        static let divider = UIColor(hex: 0x232329)
+        static let background = dynamic(light: 0xF5F6F8, dark: 0x0E0E10)
+        static let surface = dynamic(light: 0xFFFFFF, dark: 0x1A1A20)
+        static let surfaceElevated = dynamic(light: 0xF0F1F4, dark: 0x222229)
+        static let inputBackground = dynamic(light: 0xEEF0F3, dark: 0x1F1F26)
+        static let stroke = dynamic(light: 0xE5E7EB, dark: 0x2A2A2A)
+        static let divider = dynamic(light: 0xEFF1F4, dark: 0x232329)
 
         static let accent = UIColor(hex: 0xC5F432)
         static let accentDim = UIColor(hex: 0x7A9020)
 
-        static let textPrimary = UIColor.white
-        static let textSecondary = UIColor(hex: 0xA0A0A8)
-        static let textTertiary = UIColor(hex: 0x6B6B73)
+        static let textPrimary = dynamic(light: 0x0E0E10, dark: 0xFFFFFF)
+        static let textSecondary = dynamic(light: 0x6B7280, dark: 0xA0A0A8)
+        static let textTertiary = dynamic(light: 0x9CA3AF, dark: 0x6B6B73)
 
         static let win = UIColor(hex: 0x22C55E)
         static let draw = UIColor(hex: 0xF59E0B)
@@ -30,18 +30,10 @@ enum Theme {
     }
 
     enum Font {
-        static func bold(_ size: CGFloat) -> UIFont {
-            UIFont.systemFont(ofSize: size, weight: .bold)
-        }
-        static func semibold(_ size: CGFloat) -> UIFont {
-            UIFont.systemFont(ofSize: size, weight: .semibold)
-        }
-        static func medium(_ size: CGFloat) -> UIFont {
-            UIFont.systemFont(ofSize: size, weight: .medium)
-        }
-        static func regular(_ size: CGFloat) -> UIFont {
-            UIFont.systemFont(ofSize: size, weight: .regular)
-        }
+        static func bold(_ size: CGFloat) -> UIFont { .systemFont(ofSize: size, weight: .bold) }
+        static func semibold(_ size: CGFloat) -> UIFont { .systemFont(ofSize: size, weight: .semibold) }
+        static func medium(_ size: CGFloat) -> UIFont { .systemFont(ofSize: size, weight: .medium) }
+        static func regular(_ size: CGFloat) -> UIFont { .systemFont(ofSize: size, weight: .regular) }
     }
 
     enum Metric {
@@ -50,6 +42,12 @@ enum Theme {
         static let inputRadius: CGFloat = 12
         static let buttonRadius: CGFloat = 14
         static let buttonHeight: CGFloat = 52
+    }
+
+    private static func dynamic(light: UInt32, dark: UInt32) -> UIColor {
+        UIColor { trait in
+            trait.userInterfaceStyle == .light ? UIColor(hex: light) : UIColor(hex: dark)
+        }
     }
 }
 

@@ -14,17 +14,26 @@ final class CreateTeamView: UIView {
 
     let contentView = UIView()
 
-    let logoView: UIView = {
-        let v = UIView()
+    let logoView: UIControl = {
+        let v = UIControl()
         v.backgroundColor = Theme.Color.pillRed
         v.layer.cornerRadius = 20
         v.clipsToBounds = false
         return v
     }()
 
+    let logoImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 20
+        iv.isHidden = true
+        return iv
+    }()
+
     let logoLabel: UILabel = {
         let l = UILabel()
-        l.text = "FC"
+        l.text = ""
         l.textColor = .white
         l.font = Theme.Font.bold(28)
         l.textAlignment = .center
@@ -66,7 +75,7 @@ final class CreateTeamView: UIView {
         tv.backgroundColor = Theme.Color.inputBackground
         tv.layer.cornerRadius = Theme.Metric.inputRadius
         tv.font = Theme.Font.regular(15)
-        tv.textColor = .white
+        tv.textColor = Theme.Color.textPrimary
         tv.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         return tv
     }()
@@ -97,8 +106,10 @@ final class CreateTeamView: UIView {
         [logoView, uploadHint, nameField, kitColorsLabel,
          primarySwatchRow, secondarySwatchRow, cityField, foundedField,
          notesLabel, notesView].forEach { contentView.addSubview($0) }
+        logoView.addSubview(logoImageView)
         logoView.addSubview(logoLabel)
         logoView.addSubview(cameraBadge)
+        logoImageView.snp.makeConstraints { $0.edges.equalToSuperview() }
         notesView.addSubview(notesPlaceholder)
     }
 

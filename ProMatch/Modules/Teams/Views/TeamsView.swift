@@ -5,7 +5,7 @@ final class TeamsView: UIView {
     let titleLabel: UILabel = {
         let l = UILabel()
         l.font = Theme.Font.bold(28)
-        l.textColor = .white
+        l.textColor = Theme.Color.textPrimary
         l.text = "My Teams"
         return l
     }()
@@ -13,38 +13,79 @@ final class TeamsView: UIView {
     let settingsButton: UIButton = {
         let b = UIButton(type: .system)
         b.setImage(UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)), for: .normal)
-        b.tintColor = .white
+        b.tintColor = Theme.Color.textPrimary
         b.backgroundColor = Theme.Color.surface
         b.layer.cornerRadius = 18
+        b.isHidden = true
         return b
     }()
 
-    let searchBar: UIView = {
+    let searchField: PaddedTextField = {
+        let tf = PaddedTextField()
+        tf.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        tf.attributedPlaceholder = NSAttributedString(
+            string: "Search teams...",
+            attributes: [.foregroundColor: Theme.Color.textTertiary, 
+.font: Theme.Font.regular(14)])
+        tf.font = Theme.Font.regular(14)
+        tf.textColor = Theme.Color.textPrimary
+        tf.returnKeyType = .search
+        return tf
+    }()
+
+    lazy var searchBar: UIView = {
         let container = UIView()
         container.backgroundColor = Theme.Color.surface
         container.layer.cornerRadius = 12
         let icon = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         icon.tintColor = Theme.Color.textTertiary
         icon.contentMode = .scaleAspectFit
-        let tf = PaddedTextField()
-        tf.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
-        tf.attributedPlaceholder = NSAttributedString(
-            string: "Search teams...",
-            attributes: [.foregroundColor: Theme.Color.textTertiary, .font: Theme.Font.regular(14)])
-        tf.font = Theme.Font.regular(14)
-        tf.textColor = .white
         container.addSubview(icon)
-        container.addSubview(tf)
+        container.addSubview(searchField)
         icon.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(14)
             make.centerY.equalToSuperview()
             make.size.equalTo(16)
         }
-        tf.snp.makeConstraints { make in
+        searchField.snp.makeConstraints { make in
             make.leading.equalTo(icon.snp.trailing).offset(8)
             make.trailing.top.bottom.equalToSuperview()
         }
         return container
+    }()
+
+    let emptyState: UIView = {
+        let v = UIView()
+        v.isHidden = true
+        let icon = UIImageView(image: UIImage(systemName: "shield"))
+        icon.tintColor = Theme.Color.textTertiary
+        icon.contentMode = .scaleAspectFit
+        let title = UILabel()
+        title.text = "No teams yet"
+        title.font = Theme.Font.bold(17)
+        title.textColor = Theme.Color.textPrimary
+        title.textAlignment = .center
+        let subtitle = UILabel()
+        subtitle.text = "Tap + to add your first team"
+        subtitle.font = Theme.Font.regular(13)
+        subtitle.textColor = Theme.Color.textSecondary
+        subtitle.textAlignment = .center
+        v.addSubview(icon); v.addSubview(title); v.addSubview(subtitle)
+        icon.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.size.equalTo(40)
+        }
+        title.snp.makeConstraints { make in
+            make.top.equalTo(icon.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+        }
+        subtitle.snp.makeConstraints { make in
+            make.top.equalTo(title.snp.bottom).offset(4)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        return v
     }()
 
     let countLabel: UILabel = {
@@ -72,10 +113,6 @@ final class TeamsView: UIView {
         b.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .bold)), for: .normal)
         b.tintColor = .black
         b.layer.cornerRadius = 28
-        b.layer.shadowColor = Theme.Color.accent.cgColor
-        b.layer.shadowOpacity = 0.4
-        b.layer.shadowRadius = 12
-        b.layer.shadowOffset = .zero
         return b
     }()
 
@@ -88,7 +125,7 @@ final class TeamsView: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     private func setupUI() {
-        [titleLabel, settingsButton, searchBar, countLabel, collectionView, addButton].forEach { addSubview($0) }
+        [titleLabel, settingsButton, searchBar, countLabel, collectionView, emptyState, addButton].forEach { addSubview($0) }
     }
 
     private func setupConstraints() {
@@ -114,6 +151,12 @@ final class TeamsView: UIView {
             make.top.equalTo(countLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(24)
             make.bottom.equalToSuperview()
+        }
+        emptyState.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-40)
+            make.leading.greaterThanOrEqualToSuperview().offset(24)
+            make.trailing.lessThanOrEqualToSuperview().offset(-24)
         }
         addButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-24)
@@ -154,7 +197,7 @@ final class TeamCardCell: UICollectionViewCell {
         contentView.layer.borderColor = Theme.Color.stroke.withAlphaComponent(0.5).cgColor
 
         nameLabel.font = Theme.Font.bold(16)
-        nameLabel.textColor = .white
+        nameLabel.textColor = Theme.Color.textPrimary
         countLabel.font = Theme.Font.regular(12)
         countLabel.textColor = Theme.Color.textSecondary
 
@@ -218,32 +261,40 @@ final class TeamCardCell: UICollectionViewCell {
         }
     }
 
-    func configure(with team: Team) {
+    func configure(with team: Team, wins: Int, draws: Int, losses: Int) {
         badge.backgroundColor = team.color
         badge.label.text = team.initials
+        badge.imageView.isHidden = true
+        badge.label.isHidden = false
+        if let image = DataStore.shared.teamLogo(for: team) {
+            badge.imageView.image = image
+            badge.imageView.isHidden = false
+            badge.label.isHidden = true
+        }
         nameLabel.text = team.name
         countLabel.text = team.playerCountText
-        winLabel.text = "W\(team.wins)"
-        drawLabel.text = "D\(team.draws)"
-        lossLabel.text = "L\(team.losses)"
-        let total = max(team.wins + team.draws + team.losses, 1)
+        winLabel.text = "W\(wins)"
+        drawLabel.text = "D\(draws)"
+        lossLabel.text = "L\(losses)"
+        let total = max(wins + draws + losses, 1)
+        let availableWidth: CGFloat = 110
         winBar.snp.remakeConstraints { make in
-            make.top.equalTo(contentView.subviews[3].snp.bottom).offset(12)
+            make.top.equalTo(countLabel.snp.bottom).offset(12)
             make.leading.equalToSuperview().offset(14)
             make.height.equalTo(3)
-            make.width.equalTo(CGFloat(team.wins) / CGFloat(total) * 110)
+            make.width.equalTo(CGFloat(wins) / CGFloat(total) * availableWidth)
         }
         drawBar.snp.remakeConstraints { make in
             make.top.equalTo(winBar)
             make.leading.equalTo(winBar.snp.trailing).offset(2)
             make.height.equalTo(3)
-            make.width.equalTo(CGFloat(team.draws) / CGFloat(total) * 110)
+            make.width.equalTo(CGFloat(draws) / CGFloat(total) * availableWidth)
         }
         lossBar.snp.remakeConstraints { make in
             make.top.equalTo(winBar)
             make.leading.equalTo(drawBar.snp.trailing).offset(2)
             make.height.equalTo(3)
-            make.width.equalTo(CGFloat(team.losses) / CGFloat(total) * 110)
+            make.width.equalTo(CGFloat(losses) / CGFloat(total) * availableWidth)
         }
     }
 }

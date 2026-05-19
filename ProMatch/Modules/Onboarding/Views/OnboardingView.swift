@@ -18,7 +18,7 @@ final class OnboardingView: UIView {
     let titleLabel: UILabel = {
         let l = UILabel()
         l.font = Theme.Font.bold(28)
-        l.textColor = .white
+        l.textColor = Theme.Color.textPrimary
         l.textAlignment = .center
         l.numberOfLines = 0
         return l

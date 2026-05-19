@@ -1,29 +1,77 @@
 import UIKit
 
-struct Team {
+struct Team: Codable, Identifiable {
+    let id: UUID
     var name: String
     var city: String
     var foundedYear: Int?
     var initials: String
-    var color: UIColor
-    var wins: Int
-    var draws: Int
-    var losses: Int
+    var primaryColorHex: UInt32
+    var secondaryColorHex: UInt32
     var players: [Player]
     var notes: String?
+    var logoFilename: String?
 
-    var playerCountText: String { "\(players.count) players" }
+    init(id: UUID = UUID(),
+         name: String,
+         city: String,
+         foundedYear: Int? = nil,
+         initials: String,
+         primaryColorHex: UInt32,
+         secondaryColorHex: UInt32,
+         players: [Player] = [],
+         notes: String? = nil,
+         logoFilename: String? = nil) {
+        self.id = id
+        self.name = name
+        self.city = city
+        self.foundedYear = foundedYear
+        self.initials = initials
+        self.primaryColorHex = primaryColorHex
+        self.secondaryColorHex = secondaryColorHex
+        self.players = players
+        self.notes = notes
+        self.logoFilename = logoFilename
+    }
+
+    var color: UIColor { UIColor(hex: primaryColorHex) }
+    var secondaryColor: UIColor { UIColor(hex: secondaryColorHex) }
+    var playerCountText: String { "\(players.count) \(players.count == 1 ? "player" : "players")" }
 }
 
-struct Player {
+struct Player: Codable, Identifiable {
+    let id: UUID
     var firstName: String
     var lastName: String
     var nickname: String?
     var jerseyNumber: Int
     var position: Position
     var preferredFoot: Foot
+    var birthDate: Date?
     var heightCm: Int?
     var weightKg: Int?
+
+    init(id: UUID = UUID(),
+         firstName: String,
+         lastName: String,
+         nickname: String? = nil,
+         jerseyNumber: Int,
+         position: Position,
+         preferredFoot: Foot,
+         birthDate: Date? = nil,
+         heightCm: Int? = nil,
+         weightKg: Int? = nil) {
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
+        self.nickname = nickname
+        self.jerseyNumber = jerseyNumber
+        self.position = position
+        self.preferredFoot = preferredFoot
+        self.birthDate = birthDate
+        self.heightCm = heightCm
+        self.weightKg = weightKg
+    }
 
     var initials: String {
         let f = firstName.first.map { String($0) } ?? ""
@@ -33,107 +81,170 @@ struct Player {
     var fullName: String { "\(firstName) \(lastName)" }
 }
 
-enum Position: String, CaseIterable {
+enum Position: String, CaseIterable, Codable {
     case GK, LB, CB, RB, LM, CM, RM, LW, ST, RW
 }
 
-enum Foot: String, CaseIterable {
+enum Foot: String, CaseIterable, Codable {
     case left = "Left", right = "Right", both = "Both"
 }
 
-struct Tournament {
+struct Tournament: Codable, Identifiable {
+    enum Format: String, Codable, CaseIterable {
+        case roundRobin = "Round-Robin"
+        case knockout = "Knockout"
+        case groupsPlayoffs = "Groups + Playoffs"
+    }
+    enum Tiebreaker: String, Codable, CaseIterable {
+        case goalDifference = "Goal Difference"
+        case headToHead = "Head-to-Head"
+        case goalsScored = "Goals Scored"
+        case coinToss = "Coin Toss"
+    }
     enum Status { case live, scheduled, completed }
-    enum Format: String { case roundRobin = "Round-Robin", knockout = "Knockout", groupsPlayoffs = "Groups + Playoffs" }
+
+    let id: UUID
     var name: String
     var format: Format
-    var status: Status
-    var teamCount: Int
-    var matchesPlayed: Int
-    var remaining: Int
-    var date: String
+    var startDate: Date?
+    var endDate: Date?
+    var teamIds: [UUID]
+    var matchDurationMin: Int
+    var pointsWin: Int
+    var pointsDraw: Int
+    var pointsLoss: Int
+    var tiebreaker: Tiebreaker
+    var matches: [Match]
+    var createdAt: Date
+
+    init(id: UUID = UUID(),
+         name: String,
+         format: Format,
+         startDate: Date? = nil,
+         endDate: Date? = nil,
+         teamIds: [UUID],
+         matchDurationMin: Int = 90,
+         pointsWin: Int = 3,
+         pointsDraw: Int = 1,
+         pointsLoss: Int = 0,
+         tiebreaker: Tiebreaker = .goalDifference,
+         matches: [Match] = [],
+         createdAt: Date = Date()) {
+        self.id = id
+        self.name = name
+        self.format = format
+        self.startDate = startDate
+        self.endDate = endDate
+        self.teamIds = teamIds
+        self.matchDurationMin = matchDurationMin
+        self.pointsWin = pointsWin
+        self.pointsDraw = pointsDraw
+        self.pointsLoss = pointsLoss
+        self.tiebreaker = tiebreaker
+        self.matches = matches
+        self.createdAt = createdAt
+    }
+
+    var status: Status {
+        if matches.isEmpty { return .scheduled }
+        let played = matches.filter { $0.isPlayed }.count
+        if played == 0 { return .scheduled }
+        if played == matches.count { return .completed }
+        return .live
+    }
+    var matchesPlayed: Int { matches.filter { $0.isPlayed }.count }
+    var matchesRemaining: Int { matches.filter { !$0.isPlayed }.count }
+    var dateText: String {
+        if let d = startDate {
+            let f = DateFormatter()
+            f.dateFormat = "yyyy-MM"
+            return f.string(from: d)
+        }
+        return ""
+    }
+}
+
+struct Goal: Codable, Identifiable {
+    let id: UUID
+    var playerId: UUID
+    var teamId: UUID
+
+    init(id: UUID = UUID(), playerId: UUID, teamId: UUID) {
+        self.id = id
+        self.playerId = playerId
+        self.teamId = teamId
+    }
+}
+
+struct Match: Codable, Identifiable {
+    let id: UUID
+    var homeTeamId: UUID
+    var awayTeamId: UUID
+    var homeScore: Int?
+    var awayScore: Int?
+    var scheduledTime: String?
+    var round: Int
+    var goals: [Goal]
+
+    init(id: UUID = UUID(),
+         homeTeamId: UUID,
+         awayTeamId: UUID,
+         homeScore: Int? = nil,
+         awayScore: Int? = nil,
+         scheduledTime: String? = nil,
+         round: Int = 1,
+         goals: [Goal] = []) {
+        self.id = id
+        self.homeTeamId = homeTeamId
+        self.awayTeamId = awayTeamId
+        self.homeScore = homeScore
+        self.awayScore = awayScore
+        self.scheduledTime = scheduledTime
+        self.round = round
+        self.goals = goals
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(UUID.self, forKey: .id)
+        homeTeamId = try c.decode(UUID.self, forKey: .homeTeamId)
+        awayTeamId = try c.decode(UUID.self, forKey: .awayTeamId)
+        homeScore = try c.decodeIfPresent(Int.self, forKey: .homeScore)
+        awayScore = try c.decodeIfPresent(Int.self, forKey: .awayScore)
+        scheduledTime = try c.decodeIfPresent(String.self, forKey: .scheduledTime)
+        round = (try? c.decode(Int.self, forKey: .round)) ?? 1
+        goals = (try? c.decode([Goal].self, forKey: .goals)) ?? []
+    }
+
+    var isPlayed: Bool { homeScore != nil && awayScore != nil }
+    var winnerId: UUID? {
+        guard let h = homeScore, let a = awayScore else { return nil }
+        if h > a { return homeTeamId }
+        if a > h { return awayTeamId }
+        return nil
+    }
+
+    func goalCount(for teamId: UUID) -> Int {
+        goals.filter { $0.teamId == teamId }.count
+    }
+
+    func goalCount(for playerId: UUID, teamId: UUID) -> Int {
+        goals.filter { $0.playerId == playerId && $0.teamId == teamId }.count
+    }
 }
 
 struct StandingRow {
     var position: Int
-    var team: String
+    var teamId: UUID
+    var teamName: String
     var played: Int
     var won: Int
     var drawn: Int
     var lost: Int
     var goalsFor: Int
     var goalsAgainst: Int
-    var goalDiff: Int
+    var goalDiff: Int { goalsFor - goalsAgainst }
     var points: Int
-}
-
-struct MatchResult {
-    var home: String
-    var away: String
-    var homeScore: Int
-    var awayScore: Int
-}
-
-struct UpcomingMatch {
-    var home: String
-    var away: String
-    var time: String
-}
-
-struct ScorerEntry {
-    var team: String
-    var goals: Int
-}
-
-enum SampleData {
-    static let teams: [Team] = [
-        Team(name: "FC Predators", city: "Manchester", foundedYear: 2018, initials: "FP",
-             color: Theme.Color.pillRed, wins: 8, draws: 3, losses: 2, players: predatorRoster, notes: nil),
-        Team(name: "Sky Blues", city: "London", foundedYear: 2019, initials: "SB",
-             color: Theme.Color.pillBlue, wins: 6, draws: 4, losses: 3, players: [], notes: nil),
-        Team(name: "Green Hornets", city: "Birmingham", foundedYear: 2017, initials: "GH",
-             color: Theme.Color.pillGreen, wins: 4, draws: 2, losses: 7, players: [], notes: nil),
-    ]
-
-    static let predatorRoster: [Player] = [
-        Player(firstName: "Marcus", lastName: "Johnson", nickname: nil, jerseyNumber: 9, position: .ST, preferredFoot: .right, heightCm: 182, weightKg: 78),
-        Player(firstName: "Kyle", lastName: "Reeves", nickname: nil, jerseyNumber: 1, position: .GK, preferredFoot: .right, heightCm: 188, weightKg: 82),
-        Player(firstName: "James", lastName: "Ortega", nickname: nil, jerseyNumber: 5, position: .CB, preferredFoot: .left, heightCm: 186, weightKg: 80),
-        Player(firstName: "Tyler", lastName: "Chen", nickname: nil, jerseyNumber: 10, position: .CM, preferredFoot: .right, heightCm: 178, weightKg: 74),
-        Player(firstName: "Diego", lastName: "Morales", nickname: nil, jerseyNumber: 7, position: .LW, preferredFoot: .right, heightCm: 175, weightKg: 70),
-        Player(firstName: "Aaron", lastName: "Blake", nickname: nil, jerseyNumber: 3, position: .LB, preferredFoot: .left, heightCm: 180, weightKg: 76),
-    ]
-
-    static let tournaments: [Tournament] = [
-        Tournament(name: "City Cup 2026", format: .roundRobin, status: .live, teamCount: 4, matchesPlayed: 4, remaining: 2, date: "2026-04"),
-        Tournament(name: "Summer League", format: .groupsPlayoffs, status: .scheduled, teamCount: 4, matchesPlayed: 0, remaining: 0, date: "2026-07"),
-        Tournament(name: "Winter Cup 2025", format: .knockout, status: .completed, teamCount: 8, matchesPlayed: 7, remaining: 0, date: "2025-12"),
-    ]
-
-    static let standings: [StandingRow] = [
-        StandingRow(position: 1, team: "FC Predators", played: 2, won: 2, drawn: 0, lost: 0, goalsFor: 3, goalsAgainst: 2, goalDiff: 1, points: 6),
-        StandingRow(position: 2, team: "Sky Blues", played: 2, won: 1, drawn: 1, lost: 0, goalsFor: 3, goalsAgainst: 2, goalDiff: 1, points: 4),
-        StandingRow(position: 3, team: "Green Hornets", played: 2, won: 0, drawn: 1, lost: 1, goalsFor: 1, goalsAgainst: 4, goalDiff: -3, points: 1),
-        StandingRow(position: 4, team: "Red Devils", played: 2, won: 0, drawn: 0, lost: 2, goalsFor: 1, goalsAgainst: 4, goalDiff: -3, points: 1),
-    ]
-
-    static let results: [MatchResult] = [
-        MatchResult(home: "FC Predators", away: "Sky Blues", homeScore: 2, awayScore: 1),
-        MatchResult(home: "Green Hornets", away: "Red Devils", homeScore: 1, awayScore: 1),
-        MatchResult(home: "Sky Blues", away: "Green Hornets", homeScore: 2, awayScore: 0),
-        MatchResult(home: "Red Devils", away: "FC Predators", homeScore: 0, awayScore: 3),
-    ]
-
-    static let upcoming: [UpcomingMatch] = [
-        UpcomingMatch(home: "FC Predators", away: "Green Hornets", time: "05:20"),
-        UpcomingMatch(home: "Sky Blues", away: "Red Devils", time: "05:20"),
-    ]
-
-    static let scorers: [ScorerEntry] = [
-        ScorerEntry(team: "FC Predators", goals: 5),
-        ScorerEntry(team: "Sky Blues", goals: 3),
-        ScorerEntry(team: "Green Hornets", goals: 1),
-        ScorerEntry(team: "Red Devils", goals: 1),
-    ]
 }
 
 extension Position {
@@ -145,5 +256,26 @@ extension Position {
         case .LW, .RW: return Theme.Color.pillBlue
         case .ST: return Theme.Color.pillRed
         }
+    }
+}
+
+extension Team {
+    func record(in tournaments: [Tournament]) -> (wins: Int, draws: Int, losses: Int) {
+        var w = 0, d = 0, l = 0
+        for t in tournaments {
+            for m in t.matches where m.isPlayed {
+                guard let hs = m.homeScore, let as_ = m.awayScore else { continue }
+                if m.homeTeamId == id {
+                    if hs > as_ { w += 1 }
+                    else if hs == as_ { d += 1 }
+                    else { l += 1 }
+                } else if m.awayTeamId == id {
+                    if as_ > hs { w += 1 }
+                    else if as_ == hs { d += 1 }
+                    else { l += 1 }
+                }
+            }
+        }
+        return (w, d, l)
     }
 }

@@ -8,25 +8,37 @@ final class TournamentsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        build()
         tournamentsView.addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload),
+                                               name: .tournamentsDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload),
+                                               name: .teamsDidChange, object: nil)
     }
 
-    private func build() {
-        let stack = tournamentsView.contentStack
-        let live = SampleData.tournaments.filter { $0.status == .live }
-        let upcoming = SampleData.tournaments.filter { $0.status == .scheduled }
-        let completed = SampleData.tournaments.filter { $0.status == .completed }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reload()
+    }
 
-        func add(_ section: String, _ items: [Tournament], color: UIColor = Theme.Color.accent) {
+    @objc private func reload() {
+        tournamentsView.contentStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        let tournaments = DataStore.shared.tournaments
+        let live = tournaments.filter { $0.status == .live }
+        let upcoming = tournaments.filter { $0.status == .scheduled }
+        let completed = tournaments.filter { $0.status == .completed }
+
+        tournamentsView.emptyState.isHidden = !tournaments.isEmpty
+
+        func add(_ section: String, _ items: [Tournament], color: UIColor) {
             let header = SectionLabelView(section, color: color)
-            stack.addArrangedSubview(header)
-            stack.setCustomSpacing(8, after: header)
+            tournamentsView.contentStack.addArrangedSubview(header)
+            tournamentsView.contentStack.setCustomSpacing(8, after: header)
             for t in items {
                 let row = TournamentRowView(tournament: t)
-                row.addTarget(self, action: #selector(tournamentTapped), for: .touchUpInside)
-                stack.addArrangedSubview(row)
-                stack.setCustomSpacing(16, after: row)
+                row.tournamentId = t.id
+                row.addTarget(self, action: #selector(tournamentTapped(_:)), for: .touchUpInside)
+                tournamentsView.contentStack.addArrangedSubview(row)
+                tournamentsView.contentStack.setCustomSpacing(16, after: row)
             }
         }
 
@@ -35,12 +47,22 @@ final class TournamentsViewController: UIViewController {
         if !completed.isEmpty { add("Completed", completed, color: Theme.Color.textSecondary) }
     }
 
-    @objc private func tournamentTapped() {
-        let vc = TournamentDetailViewController(tournament: SampleData.tournaments[0])
+    @objc private func tournamentTapped(_ sender: TournamentRowView) {
+        guard let id = sender.tournamentId else { return }
+        let vc = TournamentDetailViewController(tournamentId: id)
         navigationController?.pushViewController(vc, animated: true)
     }
 
     @objc private func addTapped() {
+        if DataStore.shared.teams.count < 2 {
+            let alert = UIAlertController(
+                title: "Need 2+ Teams",
+                message: "Create at least two teams before starting a tournament.",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
         let vc = NewTournamentViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
