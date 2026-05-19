@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0405E49A6D55D3B48F8E8D /* TournamentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA915FD88643502C88AD87BE /* TournamentDetailVC.swift */; };
+		5C99ED3E3E1D552AB6A42BCD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E989282A05700B70C87D1 /* Theme.swift */; };
+		7627F0A40DE85BA6AC5B207E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4857A0166AFD5588B5198D1B /* Models.swift */; };
+		79742C4D2F18515A80415874 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83572C0DDA75A24BCCC3559 /* InputField.swift */; };
+		AD5F490976B9516A9046DFFE /* SoccerBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A25CD392ABC565D89F488B9 /* SoccerBallView.swift */; };
+		B1C4FC736A8C5FBF87A3E252 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F6B70411C5DC4855BE42B /* CardView.swift */; };
+		B36F72EABD125C899385CBED /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2814CA1390515B99826CD4 /* PrimaryButton.swift */; };
 		ED1EEC922FB3688F002B3BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEC892FB3688F002B3BF6 /* Assets.xcassets */; };
 		ED1EEC942FB3688F002B3BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEC8C2FB3688F002B3BF6 /* LaunchScreen.storyboard */; };
 		ED1EEC962FB3688F002B3BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */; };
 		ED1EEC972FB3688F002B3BF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC8F2FB3688F002B3BF6 /* SceneDelegate.swift */; };
-		ED1EEC982FB3688F002B3BF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC902FB3688F002B3BF6 /* ViewController.swift */; };
 		ED1EEC9F2FB36C97002B3BF6 /* CustomTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC9E2FB36C97002B3BF6 /* CustomTabBarVC.swift */; };
 		ED1EECA22FB36CAB002B3BF6 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECA12FB36CAA002B3BF6 /* CustomTabBarView.swift */; };
 		ED1EECA62FB36CEC002B3BF6 /* TeamsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECA52FB36CEC002B3BF6 /* TeamsVC.swift */; };
@@ -39,13 +45,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		167F6B70411C5DC4855BE42B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1C3E989282A05700B70C87D1 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		2A25CD392ABC565D89F488B9 /* SoccerBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerBallView.swift; sourceTree = "<group>"; };
+		4857A0166AFD5588B5198D1B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		AE2814CA1390515B99826CD4 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		BA915FD88643502C88AD87BE /* TournamentDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailVC.swift; sourceTree = "<group>"; };
+		E83572C0DDA75A24BCCC3559 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		ED1EEC702FB36889002B3BF6 /* ProMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED1EEC892FB3688F002B3BF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED1EEC8A2FB3688F002B3BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED1EEC8B2FB3688F002B3BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED1EEC8F2FB3688F002B3BF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ED1EEC902FB3688F002B3BF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ED1EEC9E2FB36C97002B3BF6 /* CustomTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarVC.swift; sourceTree = "<group>"; };
 		ED1EECA12FB36CAA002B3BF6 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		ED1EECA52FB36CEC002B3BF6 /* TeamsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsVC.swift; sourceTree = "<group>"; };
@@ -83,6 +95,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77CA057A28985A7FAC4B2220 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				1C3E989282A05700B70C87D1 /* Theme.swift */,
+				AE2814CA1390515B99826CD4 /* PrimaryButton.swift */,
+				167F6B70411C5DC4855BE42B /* CardView.swift */,
+				E83572C0DDA75A24BCCC3559 /* InputField.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		C8E99BF8ED5F57F4AC809DFF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4857A0166AFD5588B5198D1B /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		ED1EEC672FB36889002B3BF6 = {
 			isa = PBXGroup;
 			children = (
@@ -108,7 +139,6 @@
 				ED1EEC9A2FB36A5F002B3BF6 /* Modules */,
 				ED1EEC9C2FB36A6D002B3BF6 /* Resources */,
 				ED1EEC8A2FB3688F002B3BF6 /* Info.plist */,
-				ED1EEC902FB3688F002B3BF6 /* ViewController.swift */,
 			);
 			path = ProMatch;
 			sourceTree = "<group>";
@@ -143,6 +173,8 @@
 			children = (
 				ED1EECD82FB3753F002B3BF6 /* Services */,
 				ED1EECD62FB3751F002B3BF6 /* Extensions */,
+				77CA057A28985A7FAC4B2220 /* DesignSystem */,
+				C8E99BF8ED5F57F4AC809DFF /* Models */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -203,6 +235,7 @@
 			children = (
 				ED1EECAD2FB36D22002B3BF6 /* Views */,
 				ED1EECAB2FB36D16002B3BF6 /* TournamentsVC.swift */,
+				BA915FD88643502C88AD87BE /* TournamentDetailVC.swift */,
 			);
 			path = Tournaments;
 			sourceTree = "<group>";
@@ -279,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				ED1EECC82FB37184002B3BF6 /* OnboardingView.swift */,
+				2A25CD392ABC565D89F488B9 /* SoccerBallView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -436,7 +470,13 @@
 				ED1EEC972FB3688F002B3BF6 /* SceneDelegate.swift in Sources */,
 				ED1EECBD2FB36DB2002B3BF6 /* NewTournamentView.swift in Sources */,
 				ED1EEC9F2FB36C97002B3BF6 /* CustomTabBarVC.swift in Sources */,
-				ED1EEC982FB3688F002B3BF6 /* ViewController.swift in Sources */,
+				5C99ED3E3E1D552AB6A42BCD /* Theme.swift in Sources */,
+				B36F72EABD125C899385CBED /* PrimaryButton.swift in Sources */,
+				B1C4FC736A8C5FBF87A3E252 /* CardView.swift in Sources */,
+				79742C4D2F18515A80415874 /* InputField.swift in Sources */,
+				7627F0A40DE85BA6AC5B207E /* Models.swift in Sources */,
+				AD5F490976B9516A9046DFFE /* SoccerBallView.swift in Sources */,
+				3F0405E49A6D55D3B48F8E8D /* TournamentDetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

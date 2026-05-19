@@ -2,20 +2,20 @@ import UIKit
 import SnapKit
 
 final class AddPlayerViewController: UIViewController {
-    
-    private var addPlayerView: AddPlayerView {
-        return view as! AddPlayerView
-    }
-    
+    private var addPlayerView: AddPlayerView { view as! AddPlayerView }
+
+    override func loadView() { view = AddPlayerView() }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        addPlayerView.navBar.backButton.addTarget(self, action: #selector(close), for: .touchUpInside)
     }
-    
-    override func loadView() {
-        view = AddPlayerView()
-    }
-}
 
-private extension AddPlayerViewController {
-    
+    @objc private func close() {
+        if presentingViewController != nil {
+            dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
 }
