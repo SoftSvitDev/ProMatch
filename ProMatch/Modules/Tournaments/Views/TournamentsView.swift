@@ -37,7 +37,7 @@ final class TournamentsView: UIView {
         let b = UIButton(type: .system)
         b.backgroundColor = Theme.Color.accent
         b.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .bold)), for: .normal)
-        b.tintColor = .black
+        b.tintColor = Theme.Color.onAccent
         b.layer.cornerRadius = 28
         return b
     }()
@@ -153,7 +153,7 @@ final class TournamentRowView: UIControl {
         case .live:
             pillText = "● Live"
             pillBg = Theme.Color.accent
-            pillFg = .black
+            pillFg = Theme.Color.onAccent
         case .scheduled:
             pillText = "Scheduled"
             pillBg = UIColor(hex: 0xFFBE5C).withAlphaComponent(0.15)

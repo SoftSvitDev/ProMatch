@@ -144,7 +144,7 @@ final class ProfileView: UIView {
     private func makeUserCard() -> UIView {
         let card = CardView()
         let badge = TeamBadge(initials: "C", color: Theme.Color.accent, size: 56, fontSize: 24)
-        badge.label.textColor = .black
+        badge.label.textColor = Theme.Color.onAccent
 
         userNameLabel.font = Theme.Font.bold(18)
         userNameLabel.textColor = Theme.Color.textPrimary
@@ -246,7 +246,7 @@ final class ProfileView: UIView {
         logo.backgroundColor = Theme.Color.accent
         logo.layer.cornerRadius = 16
         let logoIcon = UIImageView(image: UIImage(systemName: "soccerball"))
-        logoIcon.tintColor = .black
+        logoIcon.tintColor = Theme.Color.onAccent
         logoIcon.contentMode = .scaleAspectFit
         logo.addSubview(logoIcon)
         logoIcon.snp.makeConstraints { make in

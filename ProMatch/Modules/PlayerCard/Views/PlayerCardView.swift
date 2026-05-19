@@ -79,8 +79,8 @@ final class PlayerCardView: UIView {
         let b = UIButton(type: .system)
         b.setTitle("  Add", for: .normal)
         b.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)), for: .normal)
-        b.setTitleColor(.black, for: .normal)
-        b.tintColor = .black
+        b.setTitleColor(Theme.Color.onAccent, for: .normal)
+        b.tintColor = Theme.Color.onAccent
         b.titleLabel?.font = Theme.Font.bold(13)
         b.backgroundColor = Theme.Color.accent
         b.layer.cornerRadius = 14
@@ -255,7 +255,7 @@ final class SegmentedTabsView: UIView {
         for (i, b) in buttons.enumerated() {
             if i == index {
                 b.backgroundColor = Theme.Color.accent
-                b.setTitleColor(.black, for: .normal)
+                b.setTitleColor(Theme.Color.onAccent, for: .normal)
             } else {
                 b.backgroundColor = .clear
                 b.setTitleColor(Theme.Color.textSecondary, for: .normal)

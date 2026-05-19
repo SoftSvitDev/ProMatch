@@ -9,7 +9,8 @@ enum Theme {
         static let stroke = dynamic(light: 0xE5E7EB, dark: 0x2A2A2A)
         static let divider = dynamic(light: 0xEFF1F4, dark: 0x232329)
 
-        static let accent = UIColor(hex: 0xC5F432)
+        static let accent = dynamic(light: 0x2563EB, dark: 0xC5F432)
+        static let onAccent = dynamic(light: 0xFFFFFF, dark: 0x000000)
         static let accentDim = UIColor(hex: 0x7A9020)
 
         static let textPrimary = dynamic(light: 0x0E0E10, dark: 0xFFFFFF)

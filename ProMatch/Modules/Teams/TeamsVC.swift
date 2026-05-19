@@ -11,9 +11,11 @@ final class TeamsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableKeyboardDismissal()
         teamsView.collectionView.register(TeamCardCell.self, forCellWithReuseIdentifier: TeamCardCell.reuseId)
         teamsView.collectionView.dataSource = self
         teamsView.collectionView.delegate = self
+        teamsView.collectionView.keyboardDismissMode = .onDrag
         teamsView.addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
         teamsView.searchField.addTarget(self, action: #selector(searchChanged), for: .editingChanged)
 

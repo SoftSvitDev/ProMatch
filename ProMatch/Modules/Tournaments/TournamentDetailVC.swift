@@ -112,7 +112,7 @@ final class TournamentDetailViewController: UIViewController {
         let bg: UIColor
         switch status {
         case .live:
-            text = "● Live"; fg = .black; bg = Theme.Color.accent
+            text = "● Live"; fg = Theme.Color.onAccent; bg = Theme.Color.accent
         case .scheduled:
             text = "Scheduled"
             fg = UIColor(hex: 0xFFBE5C)

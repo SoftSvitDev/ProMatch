@@ -10,6 +10,8 @@ final class CreateTeamViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableKeyboardAvoidance()
+        enableKeyboardDismissal()
         createTeamView.navBar.backButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         createTeamView.notesView.delegate = self
         createTeamView.saveButton.addTarget(self, action: #selector(save), for: .touchUpInside)

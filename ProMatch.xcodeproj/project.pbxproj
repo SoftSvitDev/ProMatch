@@ -48,6 +48,7 @@
 		DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */; };
 		E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */; };
 		BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */; };
+		2EB67B97A6435A7794FFA6BB /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryVC.swift; sourceTree = "<group>"; };
 		08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryView.swift; sourceTree = "<group>"; };
 		93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +372,7 @@
 			children = (
 				ED1EECE52FB384FB002B3BF6 /* UIView.swift */,
 				668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */,
+				350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */,
 				E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */,
 				BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */,
+				2EB67B97A6435A7794FFA6BB /* UIViewController+Keyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

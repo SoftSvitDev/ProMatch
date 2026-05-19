@@ -111,7 +111,7 @@ final class TeamsView: UIView {
         let b = UIButton(type: .system)
         b.backgroundColor = Theme.Color.accent
         b.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .bold)), for: .normal)
-        b.tintColor = .black
+        b.tintColor = Theme.Color.onAccent
         b.layer.cornerRadius = 28
         return b
     }()

@@ -10,7 +10,7 @@ final class PrimaryButton: UIButton {
     private let trailingIcon: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        iv.tintColor = .black
+        iv.tintColor = Theme.Color.onAccent
         iv.isHidden = true
         return iv
     }()
@@ -57,8 +57,8 @@ final class PrimaryButton: UIButton {
         switch style {
         case .primary:
             backgroundColor = Theme.Color.accent
-            setTitleColor(.black, for: .normal)
-            trailingIcon.tintColor = .black
+            setTitleColor(Theme.Color.onAccent, for: .normal)
+            trailingIcon.tintColor = Theme.Color.onAccent
             isUserInteractionEnabled = true
             alpha = 1.0
         case .secondary:

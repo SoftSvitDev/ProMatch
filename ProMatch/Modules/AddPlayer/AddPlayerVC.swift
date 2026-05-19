@@ -16,6 +16,8 @@ final class AddPlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableKeyboardAvoidance()
+        enableKeyboardDismissal()
         addPlayerView.navBar.backButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         addPlayerView.addButton.addTarget(self, action: #selector(save), for: .touchUpInside)
         addPlayerView.firstNameField.textField.addTarget(self, action: #selector(validateForm), for: .editingChanged)

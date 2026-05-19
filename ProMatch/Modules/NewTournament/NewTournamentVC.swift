@@ -28,6 +28,8 @@ final class NewTournamentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableKeyboardAvoidance()
+        enableKeyboardDismissal()
         newTournamentView.navBar.backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         newTournamentView.continueButton.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
         showStep()
@@ -43,6 +45,8 @@ final class NewTournamentViewController: UIViewController {
         case 4: buildStep4()
         default: break
         }
+        // Newly built text fields need Return-key dismissal too.
+        wireReturnDismissOnAllTextFields()
     }
 
     // MARK: - Step 1: Name + Format + Dates
