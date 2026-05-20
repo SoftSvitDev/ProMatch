@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 final class CardView: UIView {
     init(background: UIColor = Theme.Color.surface, radius: CGFloat = Theme.Metric.cardRadius) {
@@ -119,3 +120,4 @@ final class PillLabel: UILabel {
         return CGSize(width: s.width + 12, height: s.height + 4)
     }
 }
+

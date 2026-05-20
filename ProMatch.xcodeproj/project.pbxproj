@@ -50,6 +50,7 @@
 		ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE52FB384FB002B3BF6 /* UIView.swift */; };
 		EDF89B022FBD9F4E00FFAB33 /* PlayersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF89B012FBD9F4B00FFAB33 /* PlayersVC.swift */; };
 		EDF89B052FBD9F5B00FFAB33 /* PlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF89B042FBD9F5B00FFAB33 /* PlayersView.swift */; };
+		EDF89B082FBDE60C00FFAB33 /* TournamentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF89B072FBDE60B00FFAB33 /* TournamentVC.swift */; };
 		F10582A383FE56F186667416 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8740F08E98596A9330797B /* DataStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		ED1EECE52FB384FB002B3BF6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		EDF89B012FBD9F4B00FFAB33 /* PlayersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersVC.swift; sourceTree = "<group>"; };
 		EDF89B042FBD9F5B00FFAB33 /* PlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersView.swift; sourceTree = "<group>"; };
+		EDF89B072FBDE60B00FFAB33 /* TournamentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 		ED1EEC9A2FB36A5F002B3BF6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDF89B062FBDE5F600FFAB33 /* Tournament */,
 				EDF89B002FBD9F4600FFAB33 /* Players */,
 				ED1EECD02FB372F1002B3BF6 /* AddPlayer */,
 				ED1EECCA2FB371E3002B3BF6 /* PlayerCard */,
@@ -434,6 +437,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		EDF89B062FBDE5F600FFAB33 /* Tournament */ = {
+			isa = PBXGroup;
+			children = (
+				EDF89B072FBDE60B00FFAB33 /* TournamentVC.swift */,
+			);
+			path = Tournament;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -551,6 +562,7 @@
 				A8B156F758025AF982ACC922 /* SettingsStore.swift in Sources */,
 				DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */,
 				E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */,
+				EDF89B082FBDE60C00FFAB33 /* TournamentVC.swift in Sources */,
 				BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */,
 				2EB67B97A6435A7794FFA6BB /* UIViewController+Keyboard.swift in Sources */,
 			);
@@ -580,6 +592,8 @@
 				DEVELOPMENT_TEAM = A673JD59FG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ProMatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ProMatch24;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -616,6 +630,8 @@
 				DEVELOPMENT_TEAM = A673JD59FG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ProMatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ProMatch24;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

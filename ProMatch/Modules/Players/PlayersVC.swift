@@ -81,22 +81,9 @@ final class PlayersViewController: UIViewController {
             present(alert, animated: true)
             return
         }
-        if teams.count == 1 {
-            pushAddPlayer(teamId: teams[0].id)
-            return
-        }
-        let sheet = UIAlertController(title: "Add player to…", message: nil, preferredStyle: .actionSheet)
-        for team in teams {
-            sheet.addAction(UIAlertAction(title: team.name, style: .default) { [weak self] _ in
-                self?.pushAddPlayer(teamId: team.id)
-            })
-        }
-        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(sheet, animated: true)
-    }
-
-    private func pushAddPlayer(teamId: UUID) {
-        let vc = AddPlayerViewController(teamId: teamId)
+        // Single team is auto-selected as a convenience; multi-team opens the screen with picker empty.
+        let presetId: UUID? = teams.count == 1 ? teams[0].id : nil
+        let vc = AddPlayerViewController(teamId: presetId)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

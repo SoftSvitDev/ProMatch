@@ -59,10 +59,7 @@ final class SettingsStore {
     }
 
     var notificationsEnabled: Bool {
-        get {
-            if defaults.object(forKey: Keys.notifications) == nil { return true }
-            return defaults.bool(forKey: Keys.notifications)
-        }
+        get { defaults.bool(forKey: Keys.notifications) }
         set {
             defaults.set(newValue, forKey: Keys.notifications)
             NotificationCenter.default.post(name: .settingsDidChange, object: nil)

@@ -3,11 +3,13 @@ import SnapKit
 
 final class AddPlayerViewController: UIViewController {
     private var addPlayerView: AddPlayerView { view as! AddPlayerView }
-    private let teamId: UUID
+    private let presetTeamId: UUID?
+    private var selectedTeamId: UUID?
     private var birthDate: Date?
 
-    init(teamId: UUID) {
-        self.teamId = teamId
+    init(teamId: UUID? = nil) {
+        self.presetTeamId = teamId
+        self.selectedTeamId = teamId
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) { fatalError() }
@@ -24,7 +26,47 @@ final class AddPlayerViewController: UIViewController {
         addPlayerView.lastNameField.textField.addTarget(self, action: #selector(validateForm), for: .editingChanged)
         addPlayerView.positionGrid.onSelect = { [weak self] _ in self?.validateForm() }
         addPlayerView.birthFieldButton.addTarget(self, action: #selector(pickBirthDate), for: .touchUpInside)
+        addPlayerView.teamFieldButton.addTarget(self, action: #selector(pickTeam), for: .touchUpInside)
+        configureTeamPicker()
         validateForm()
+    }
+
+    private func configureTeamPicker() {
+        // Disable picker when invoked from a specific team context (preset).
+        let canChange = (presetTeamId == nil)
+        addPlayerView.setTeamPickerEnabled(canChange)
+        refreshTeamPickerLabel()
+    }
+
+    private func refreshTeamPickerLabel() {
+        if let id = selectedTeamId, let team = DataStore.shared.team(id: id) {
+            addPlayerView.teamFieldLabel.text = team.name
+            addPlayerView.teamFieldLabel.textColor = Theme.Color.textPrimary
+        } else {
+            addPlayerView.teamFieldLabel.text = "Select team"
+            addPlayerView.teamFieldLabel.textColor = Theme.Color.textTertiary
+        }
+    }
+
+    @objc private func pickTeam() {
+        let teams = DataStore.shared.teams
+        guard !teams.isEmpty else { return }
+        let sheet = UIAlertController(title: "Select team", message: nil, preferredStyle: .actionSheet)
+        for team in teams {
+            let isCurrent = team.id == selectedTeamId
+            let title = isCurrent ? "\u{2713} \(team.name)" : team.name
+            sheet.addAction(UIAlertAction(title: title, style: .default) { [weak self] _ in
+                self?.selectedTeamId = team.id
+                self?.refreshTeamPickerLabel()
+                self?.validateForm()
+            })
+        }
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        if let popover = sheet.popoverPresentationController {
+            popover.sourceView = addPlayerView.teamFieldButton
+            popover.sourceRect = addPlayerView.teamFieldButton.bounds
+        }
+        present(sheet, animated: true)
     }
 
     @objc private func close() {
@@ -39,7 +81,8 @@ final class AddPlayerViewController: UIViewController {
         let first = addPlayerView.firstNameField.textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let last = addPlayerView.lastNameField.textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let positionSelected = addPlayerView.positionGrid.selectedPosition != nil
-        let valid = !first.isEmpty && !last.isEmpty && positionSelected
+        let teamSelected = selectedTeamId != nil
+        let valid = !first.isEmpty && !last.isEmpty && positionSelected && teamSelected
         addPlayerView.addButton.style = valid ? .primary : .disabled
     }
 
@@ -76,6 +119,7 @@ final class AddPlayerViewController: UIViewController {
         let last = addPlayerView.lastNameField.textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let nickname = addPlayerView.nicknameField.textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         guard let position = addPlayerView.positionGrid.selectedPosition else { return }
+        guard let teamId = selectedTeamId else { return }
         let foot: Foot
         switch addPlayerView.footSegment.selectedIndex {
         case 0: foot = .left

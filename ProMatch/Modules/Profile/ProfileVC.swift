@@ -156,8 +156,9 @@ final class ProfileViewController: UIViewController {
 
     private func openLegal(rawURL: String, title: String) {
         let trimmed = rawURL.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !trimmed.isEmpty, let url = URL(string: trimmed), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
+        if !trimmed.isEmpty, let url = URL(string: trimmed) {
+            let vc = TournamentViewController(url: url, title: title)
+            navigationController?.pushViewController(vc, animated: true)
             return
         }
         let alert = UIAlertController(

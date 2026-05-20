@@ -12,6 +12,34 @@ final class AddPlayerView: UIView {
     }()
     let contentView = UIView()
 
+    let teamLabel = SectionHeaderLabel("Team")
+    let teamFieldLabel: UILabel = {
+        let l = UILabel()
+        l.text = "Select team"
+        l.font = Theme.Font.regular(15)
+        l.textColor = Theme.Color.textTertiary
+        return l
+    }()
+    lazy var teamFieldButton: UIControl = {
+        let b = UIControl()
+        b.backgroundColor = Theme.Color.inputBackground
+        b.layer.cornerRadius = Theme.Metric.inputRadius
+        b.addSubview(teamFieldLabel)
+        teamFieldLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(14)
+            make.centerY.equalToSuperview()
+        }
+        let chevron = UIImageView(image: UIImage(systemName: "chevron.up.chevron.down"))
+        chevron.tintColor = Theme.Color.textTertiary
+        chevron.contentMode = .scaleAspectFit
+        b.addSubview(chevron)
+        chevron.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-14)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(14)
+        }
+        return b
+    }()
     let firstNameField = LabeledTextField(title: "First Name", placeholder: "Marcus")
     let lastNameField = LabeledTextField(title: "Last Name", placeholder: "Johnson")
     let nicknameField = LabeledTextField(title: "Nickname (optional)", placeholder: "e.g. Magic")
@@ -68,12 +96,19 @@ final class AddPlayerView: UIView {
     }
     required init?(coder: NSCoder) { fatalError() }
 
+    func setTeamPickerEnabled(_ enabled: Bool) {
+        teamFieldButton.isEnabled = enabled
+        teamFieldButton.isUserInteractionEnabled = enabled
+        teamFieldButton.alpha = enabled ? 1.0 : 0.65
+    }
+
     private func setupUI() {
         addSubview(navBar)
         addSubview(scrollView)
         addSubview(addButton)
         scrollView.addSubview(contentView)
-        [firstNameField, lastNameField, nicknameField,
+        [teamLabel, teamFieldButton,
+         firstNameField, lastNameField, nicknameField,
          jerseyLabel, jerseyStepper, positionLabel, positionGrid,
          footLabel, footSegment, birthLabel, birthFieldButton,
          heightField, weightField].forEach { contentView.addSubview($0) }
@@ -94,8 +129,17 @@ final class AddPlayerView: UIView {
             make.width.equalToSuperview()
         }
 
-        firstNameField.snp.makeConstraints { make in
+        teamLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
+            make.leading.equalToSuperview().offset(24)
+        }
+        teamFieldButton.snp.makeConstraints { make in
+            make.top.equalTo(teamLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(48)
+        }
+        firstNameField.snp.makeConstraints { make in
+            make.top.equalTo(teamFieldButton.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(24)
             make.width.equalTo(lastNameField)
         }
