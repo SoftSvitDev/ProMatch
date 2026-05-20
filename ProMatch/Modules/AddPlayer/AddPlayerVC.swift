@@ -83,6 +83,16 @@ final class AddPlayerViewController: UIViewController {
         default: foot = .right
         }
         let jersey = addPlayerView.jerseyStepper.value
+        if let team = DataStore.shared.team(id: teamId),
+           team.players.contains(where: { $0.jerseyNumber == jersey }) {
+            let alert = UIAlertController(
+                title: "Jersey #\(jersey) is taken",
+                message: "Another player on this team already wears this number.",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
         let height = Int(addPlayerView.heightField.textField.text ?? "")
         let weight = Int(addPlayerView.weightField.textField.text ?? "")
 

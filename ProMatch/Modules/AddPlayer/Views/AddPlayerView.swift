@@ -17,7 +17,7 @@ final class AddPlayerView: UIView {
     let nicknameField = LabeledTextField(title: "Nickname (optional)", placeholder: "e.g. Magic")
 
     let jerseyLabel = SectionHeaderLabel("Jersey Number")
-    let jerseyStepper = NumberStepper(initial: 1)
+    let jerseyStepper = NumberStepper(initial: 1, max: 99)
 
     let positionLabel = SectionHeaderLabel("Position")
     let positionGrid = PositionGrid()
@@ -174,7 +174,10 @@ final class NumberStepper: UIView {
         }
     }
 
-    init(initial: Int) {
+    private let maxValue: Int
+
+    init(initial: Int, max: Int = 999) {
+        self.maxValue = max
         super.init(frame: .zero)
         value = initial
         backgroundColor = Theme.Color.inputBackground
@@ -213,7 +216,7 @@ final class NumberStepper: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     @objc private func minus() { if value > 0 { value -= 1 } }
-    @objc private func plus() { if value < 999 { value += 1 } }
+    @objc private func plus() { if value < maxValue { value += 1 } }
     private func update() { valueLabel.text = "\(value)" }
 }
 

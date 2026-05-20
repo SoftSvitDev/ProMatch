@@ -111,6 +111,16 @@ final class DataStore {
         saveTeams()
     }
 
+    /// Returns the names of tournaments where the team is participating with at least one played match.
+    /// If non-empty, the team should not be deleted without explicit user confirmation.
+    func tournamentsBlockingDeletion(of teamId: UUID) -> [String] {
+        tournaments.compactMap { t in
+            guard t.teamIds.contains(teamId) else { return nil }
+            let hasPlayed = t.matches.contains { ($0.homeTeamId == teamId || $0.awayTeamId == teamId) && $0.isPlayed }
+            return hasPlayed ? t.name : nil
+        }
+    }
+
     func deleteTeam(id: UUID) {
         if let team = teams.first(where: { $0.id == id }),
            let filename = team.logoFilename {
@@ -193,6 +203,8 @@ final class DataStore {
     func recordMatch(tournamentId: UUID, matchId: UUID, home: Int, away: Int, goals: [Goal]?) {
         guard let tIdx = tournaments.firstIndex(where: { $0.id == tournamentId }) else { return }
         guard let mIdx = tournaments[tIdx].matches.firstIndex(where: { $0.id == matchId }) else { return }
+        // Knockout matches must have a winner — refuse tied scores at the data layer too.
+        if tournaments[tIdx].format == .knockout && home == away { return }
         tournaments[tIdx].matches[mIdx].homeScore = home
         tournaments[tIdx].matches[mIdx].awayScore = away
         if let goals { tournaments[tIdx].matches[mIdx].goals = goals }

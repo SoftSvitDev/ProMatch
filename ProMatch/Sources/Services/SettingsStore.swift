@@ -29,7 +29,10 @@ final class SettingsStore {
         static let name = "settings.userName"
         static let theme = "settings.themeMode"
         static let notifications = "settings.notifications"
+        static let formation = "settings.defaultFormation"
     }
+
+    static let formations: [String] = ["4-3-3", "4-4-2", "4-2-3-1", "3-5-2", "3-4-3", "5-3-2", "4-5-1"]
 
     private let defaults = UserDefaults.standard
     private init() {}
@@ -62,6 +65,14 @@ final class SettingsStore {
         }
         set {
             defaults.set(newValue, forKey: Keys.notifications)
+            NotificationCenter.default.post(name: .settingsDidChange, object: nil)
+        }
+    }
+
+    var defaultFormation: String {
+        get { defaults.string(forKey: Keys.formation) ?? "4-3-3" }
+        set {
+            defaults.set(newValue, forKey: Keys.formation)
             NotificationCenter.default.post(name: .settingsDidChange, object: nil)
         }
     }

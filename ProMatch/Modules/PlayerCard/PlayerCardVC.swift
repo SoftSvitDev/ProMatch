@@ -64,9 +64,18 @@ final class PlayerCardViewController: UIViewController {
         } else {
             for p in team.players {
                 let row = PlayerRowView(player: p)
+                let pid = p.id
+                row.addAction(UIAction { [weak self] _ in
+                    self?.openPlayer(playerId: pid)
+                }, for: .touchUpInside)
                 playerCardView.playersStack.addArrangedSubview(row)
             }
         }
+    }
+
+    private func openPlayer(playerId: UUID) {
+        let vc = PlayerDetailViewController(teamId: teamId, playerId: playerId)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     private func makeEmptyState() -> UIView {
@@ -100,5 +109,60 @@ extension UIColor {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         return UIColor(hue: h, saturation: s, brightness: max(0, min(1, b * brightness)), alpha: a)
+    }
+}
+
+final class PlayerDetailViewController: UIViewController {
+    private var detailView: PlayerDetailView { view as! PlayerDetailView }
+    private let teamId: UUID
+    private let playerId: UUID
+
+    init(teamId: UUID, playerId: UUID) {
+        self.teamId = teamId
+        self.playerId = playerId
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    override func loadView() { view = PlayerDetailView() }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        detailView.navBar.backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        detailView.deleteButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh),
+                                               name: .teamsDidChange, object: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
+    }
+
+    @objc private func refresh() {
+        guard let team = DataStore.shared.team(id: teamId),
+              let player = team.players.first(where: { $0.id == playerId }) else {
+            navigationController?.popViewController(animated: true)
+            return
+        }
+        detailView.configure(player: player, team: team)
+    }
+
+    @objc private func back() { navigationController?.popViewController(animated: true) }
+
+    @objc private func deleteTapped() {
+        guard let team = DataStore.shared.team(id: teamId),
+              let player = team.players.first(where: { $0.id == playerId }) else { return }
+        let alert = UIAlertController(
+            title: "Delete \(player.fullName)?",
+            message: "This will remove the player from \(team.name). This cannot be undone.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            DataStore.shared.removePlayer(playerId: self.playerId, fromTeam: self.teamId)
+            self.navigationController?.popViewController(animated: true)
+        })
+        present(alert, animated: true)
     }
 }

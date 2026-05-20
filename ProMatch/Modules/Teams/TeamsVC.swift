@@ -80,4 +80,34 @@ extension TeamsViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let vc = PlayerCardViewController(teamId: filteredTeams[indexPath.item].id)
         navigationController?.pushViewController(vc, animated: true)
     }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemAt indexPath: IndexPath,
+                        point: CGPoint) -> UIContextMenuConfiguration? {
+        let team = filteredTeams[indexPath.item]
+        return UIContextMenuConfiguration(identifier: team.id as NSUUID, previewProvider: nil) { [weak self] _ in
+            let delete = UIAction(title: "Delete team", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+                self?.confirmDelete(team: team)
+            }
+            return UIMenu(title: team.name, children: [delete])
+        }
+    }
+
+    private func confirmDelete(team: Team) {
+        let blockers = DataStore.shared.tournamentsBlockingDeletion(of: team.id)
+        let baseMessage = "This will permanently remove \(team.name) and its roster."
+        let warning: String
+        if blockers.isEmpty {
+            warning = baseMessage
+        } else {
+            let list = blockers.joined(separator: ", ")
+            warning = baseMessage + "\n\nIt is also participating in: \(list). Played matches will be removed."
+        }
+        let alert = UIAlertController(title: "Delete \(team.name)?", message: warning, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
+            DataStore.shared.deleteTeam(id: team.id)
+        })
+        present(alert, animated: true)
+    }
 }

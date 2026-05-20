@@ -46,7 +46,7 @@ final class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        onboardingView.skipButton.addTarget(self, action: #selector(finish), for: .touchUpInside)
+        onboardingView.skipButton.addTarget(self, action: #selector(skipTapped), for: .touchUpInside)
         onboardingView.continueButton.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
         showPage(0)
     }
@@ -61,6 +61,10 @@ final class OnboardingViewController: UIViewController {
         onboardingView.illustrationContainer.addSubview(illo)
         illo.snp.makeConstraints { $0.edges.equalToSuperview() }
         onboardingView.configurePageIndicator(total: pages.count, currentIndex: index)
+
+        let isLast = index == pages.count - 1
+        onboardingView.continueButton.setTitle(isLast ? "Get Started" : "Continue", for: .normal)
+        onboardingView.skipButton.isHidden = isLast
     }
 
     @objc private func nextTapped() {
@@ -69,6 +73,18 @@ final class OnboardingViewController: UIViewController {
         } else {
             finish()
         }
+    }
+
+    @objc private func skipTapped() {
+        let alert = UIAlertController(
+            title: "Skip introduction?",
+            message: "You can always learn about ProMatch features from the Profile tab.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Keep watching", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Skip", style: .default) { [weak self] _ in
+            self?.finish()
+        })
+        present(alert, animated: true)
     }
 
     @objc private func finish() {

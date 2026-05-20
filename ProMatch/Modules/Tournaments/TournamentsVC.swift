@@ -75,6 +75,8 @@ final class TournamentsViewController: UIViewController {
                 let row = TournamentRowView(tournament: t)
                 row.tournamentId = t.id
                 row.addTarget(self, action: #selector(tournamentTapped(_:)), for: .touchUpInside)
+                let interaction = UIContextMenuInteraction(delegate: self)
+                row.addInteraction(interaction)
                 tournamentsView.contentStack.addArrangedSubview(row)
                 tournamentsView.contentStack.setCustomSpacing(16, after: row)
             }
@@ -103,5 +105,32 @@ final class TournamentsViewController: UIViewController {
         }
         let vc = NewTournamentViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+
+    private func confirmDelete(tournament: Tournament) {
+        let alert = UIAlertController(
+            title: "Delete \(tournament.name)?",
+            message: "All matches and results for this tournament will be removed.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
+            DataStore.shared.deleteTournament(id: tournament.id)
+        })
+        present(alert, animated: true)
+    }
+}
+
+extension TournamentsViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        guard let row = interaction.view as? TournamentRowView,
+              let id = row.tournamentId,
+              let tournament = DataStore.shared.tournament(id: id) else { return nil }
+        return UIContextMenuConfiguration(identifier: id as NSUUID, previewProvider: nil) { [weak self] _ in
+            let delete = UIAction(title: "Delete tournament", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+                self?.confirmDelete(tournament: tournament)
+            }
+            return UIMenu(title: tournament.name, children: [delete])
+        }
     }
 }

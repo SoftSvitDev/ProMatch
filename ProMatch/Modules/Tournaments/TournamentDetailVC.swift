@@ -11,14 +11,17 @@ final class TournamentDetailViewController: UIViewController {
     private let teamsBox = StatBox(color: Theme.Color.accent, title: "Teams")
     private let playedBox = StatBox(color: Theme.Color.accent, title: "Played")
     private let remainingBox = StatBox(color: Theme.Color.accent, title: "Remaining")
-    private let tabs = SegmentedTabsView(items: ["Standings", "Matches", "Scorers"])
+    private let tabs: SegmentedTabsView
     private let tabContainer = UIView()
 
     init(tournamentId: UUID) {
         self.tournamentId = tournamentId
-        let name = DataStore.shared.tournament(id: tournamentId)?.name ?? "Tournament"
+        let tournament = DataStore.shared.tournament(id: tournamentId)
+        let name = tournament?.name ?? "Tournament"
         self.navBar = NavBarView(title: name)
         self.statusPill = PillLabel(text: "", textColor: .clear, background: .clear, fontSize: 11)
+        let firstTabTitle = (tournament?.format == .knockout) ? "Bracket" : "Standings"
+        self.tabs = SegmentedTabsView(items: [firstTabTitle, "Matches", "Scorers"])
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) { fatalError() }

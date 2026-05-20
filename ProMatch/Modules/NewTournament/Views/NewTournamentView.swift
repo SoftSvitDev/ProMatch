@@ -158,6 +158,12 @@ final class TeamSelectRow: UIControl {
     let detailLabel = UILabel()
     let radio = UIView()
     var isOn = false { didSet { updateRadio() } }
+    var isEligible: Bool = true { didSet { applyEligibility() } }
+
+    private func applyEligibility() {
+        alpha = isEligible ? 1.0 : 0.5
+        radio.isHidden = !isEligible
+    }
 
     init(team: Team) {
         self.teamId = team.id
@@ -170,7 +176,7 @@ final class TeamSelectRow: UIControl {
         nameLabel.font = Theme.Font.bold(15)
         nameLabel.textColor = Theme.Color.textPrimary
 
-        detailLabel.text = "\(team.players.count) players · \(team.city)"
+        detailLabel.text = "\(team.playerCountText) · \(team.city)"
         detailLabel.font = Theme.Font.regular(12)
         detailLabel.textColor = Theme.Color.textSecondary
 

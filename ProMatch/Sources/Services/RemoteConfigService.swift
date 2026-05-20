@@ -1,7 +1,7 @@
 import FirebaseRemoteConfig
 
 enum RemoteConfigKey: String {
-    case gq92isvrep // privacy
+    case tpi008dx // privacy
     case okq89on7 // app store url
     case fe3xr4io0q8yllz2 // terms_url
     case kdf9ich54479js // cloak
@@ -44,7 +44,7 @@ final class RemoteConfigService: RemoteConfigProtocol {
     
     private func makeDefaults() -> [String: NSObject] {
         return [
-            RemoteConfigKey.gq92isvrep.rawValue: Defaults.cbfgweksOaL as NSObject,
+            RemoteConfigKey.tpi008dx.rawValue: Defaults.cbfgweksOaL as NSObject,
             RemoteConfigKey.okq89on7.rawValue: Defaults.ghsjdjeoQsawpx as NSObject,
             RemoteConfigKey.fe3xr4io0q8yllz2.rawValue: Defaults.slwoepfjKA as NSObject,
             RemoteConfigKey.l7jwboe8dfmtvk.rawValue: Defaults.sdskskLasqpxMsd as NSObject,

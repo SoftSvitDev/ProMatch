@@ -192,7 +192,13 @@ final class ScoreEntryViewController: UIViewController {
         let teamScore = teamId == homeTeam.id ? homeScore : awayScore
         let assigned = goals.filter { $0.teamId == teamId }.count
         guard teamScore > assigned else {
-            showInfo("All \(teamScore) goals already attributed. Increase the score first.")
+            let msg: String
+            if teamScore == 0 {
+                msg = "No goals to attribute yet. Increase the score first."
+            } else {
+                msg = "All \(teamScore) goals are already attributed. Increase the score to add another scorer."
+            }
+            showInfo(msg)
             return
         }
         if team.players.isEmpty {

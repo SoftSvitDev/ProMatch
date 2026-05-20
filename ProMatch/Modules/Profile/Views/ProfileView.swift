@@ -234,7 +234,7 @@ final class ProfileView: UIView {
     private func makeAppFooter() -> UIView {
         let v = CardView()
         let title = UILabel()
-        title.text = "Squad Manager: Football"
+        title.text = "ProMatch 24"
         title.font = Theme.Font.bold(14)
         title.textColor = Theme.Color.textPrimary
         let version = UILabel()

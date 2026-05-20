@@ -5,6 +5,7 @@ final class CustomTabBarViewController: UIViewController {
     private let tabBar = CustomTabBarView(items: [
         .init(title: "Teams", symbol: "house"),
         .init(title: "Tournaments", symbol: "trophy"),
+        .init(title: "Players", symbol: "person.2"),
         .init(title: "Profile", symbol: "person"),
     ])
 
@@ -20,6 +21,7 @@ final class CustomTabBarViewController: UIViewController {
     private lazy var viewControllers: [UINavigationController] = [
         UINavigationController(rootViewController: TeamsViewController()),
         UINavigationController(rootViewController: TournamentsViewController()),
+        UINavigationController(rootViewController: PlayersViewController()),
         UINavigationController(rootViewController: ProfileViewController()),
     ]
 

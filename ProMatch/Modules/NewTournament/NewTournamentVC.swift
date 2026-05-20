@@ -77,12 +77,6 @@ final class NewTournamentViewController: UIViewController {
         opt2.isOn = format == .knockout
         stack.addArrangedSubview(opt2)
 
-        let opt3 = FormatOptionRow(symbol: "rectangle.grid.2x2", title: "Groups + Playoffs", subtitle: "Group stage then knockouts")
-        opt3.format = .groupsPlayoffs
-        opt3.addTarget(self, action: #selector(formatTapped(_:)), for: .touchUpInside)
-        opt3.isOn = format == .groupsPlayoffs
-        stack.addArrangedSubview(opt3)
-
         let datesContainer = UIView()
         let startCol = UIView(); let endCol = UIView()
         let startHeader = SectionHeaderLabel("Start Date")
@@ -213,6 +207,7 @@ final class NewTournamentViewController: UIViewController {
             let row = TeamSelectRow(team: team)
             row.teamId = team.id
             row.isOn = selectedTeamIds.contains(team.id)
+            row.isEligible = !team.players.isEmpty
             row.addTarget(self, action: #selector(teamRowTapped(_:)), for: .touchUpInside)
             stack.addArrangedSubview(row)
         }
@@ -221,6 +216,15 @@ final class NewTournamentViewController: UIViewController {
 
     @objc private func teamRowTapped(_ sender: TeamSelectRow) {
         guard let id = sender.teamId else { return }
+        if !sender.isEligible {
+            let alert = UIAlertController(
+                title: "Team has no players",
+                message: "Add at least one player to this team before entering a tournament.",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
         if selectedTeamIds.contains(id) {
             selectedTeamIds.remove(id)
             sender.isOn = false
@@ -248,35 +252,42 @@ final class NewTournamentViewController: UIViewController {
         duration.stepper.onChange = { [weak self] v in self?.matchDuration = v }
         stack.addArrangedSubview(duration)
 
-        let h2 = SectionHeaderLabel("Points System")
-        stack.addArrangedSubview(h2)
-        stack.setCustomSpacing(8, after: h2)
+        // Points & tiebreaker only matter for league formats.
+        if format != .knockout {
+            let h2 = SectionHeaderLabel("Points System")
+            stack.addArrangedSubview(h2)
+            stack.setCustomSpacing(8, after: h2)
 
-        let win = RuleStepperRow(title: "Points for Win", initial: pointsWin)
-        win.stepper.onChange = { [weak self] v in self?.pointsWin = v }
-        stack.addArrangedSubview(win)
+            let win = RuleStepperRow(title: "Points for Win", initial: pointsWin)
+            win.stepper.onChange = { [weak self] v in self?.pointsWin = v }
+            stack.addArrangedSubview(win)
 
-        let draw = RuleStepperRow(title: "Points for Draw", initial: pointsDraw)
-        draw.stepper.onChange = { [weak self] v in self?.pointsDraw = v }
-        stack.addArrangedSubview(draw)
+            let draw = RuleStepperRow(title: "Points for Draw", initial: pointsDraw)
+            draw.stepper.onChange = { [weak self] v in self?.pointsDraw = v }
+            stack.addArrangedSubview(draw)
 
-        let loss = RuleStepperRow(title: "Points for Loss", initial: pointsLoss)
-        loss.stepper.onChange = { [weak self] v in self?.pointsLoss = v }
-        stack.addArrangedSubview(loss)
+            let loss = RuleStepperRow(title: "Points for Loss", initial: pointsLoss)
+            loss.stepper.onChange = { [weak self] v in self?.pointsLoss = v }
+            stack.addArrangedSubview(loss)
 
-        let h3 = SectionHeaderLabel("Tiebreaker")
-        stack.addArrangedSubview(h3)
-        stack.setCustomSpacing(8, after: h3)
+            let h3 = SectionHeaderLabel("Tiebreaker")
+            stack.addArrangedSubview(h3)
+            stack.setCustomSpacing(8, after: h3)
 
-        for option in Tournament.Tiebreaker.allCases {
-            let row = TiebreakerRow(title: option.rawValue)
-            row.tiebreaker = option
-            row.isSelected2 = (option == tiebreaker)
-            row.addTarget(self, action: #selector(tiebreakerTapped(_:)), for: .touchUpInside)
-            stack.addArrangedSubview(row)
+            for option in Self.selectableTiebreakers {
+                let row = TiebreakerRow(title: option.rawValue)
+                row.tiebreaker = option
+                row.isSelected2 = (option == tiebreaker)
+                row.addTarget(self, action: #selector(tiebreakerTapped(_:)), for: .touchUpInside)
+                stack.addArrangedSubview(row)
+            }
         }
         updateContinueButton()
     }
+
+    private static let selectableTiebreakers: [Tournament.Tiebreaker] = [
+        .goalDifference, .headToHead, .goalsScored
+    ]
 
     @objc private func tiebreakerTapped(_ sender: TiebreakerRow) {
         guard let t = sender.tiebreaker else { return }
@@ -307,15 +318,18 @@ final class NewTournamentViewController: UIViewController {
             dateText = "Not set"
         }
 
-        let summary = ReviewSummaryView(rows: [
+        var rows: [(String, String)] = [
             ("Tournament", tournamentName.isEmpty ? "—" : tournamentName),
             ("Format", format.rawValue),
             ("Teams", "\(selectedTeamIds.count) selected"),
             ("Match Duration", "\(matchDuration) min"),
-            ("Points (W/D/L)", "\(pointsWin) / \(pointsDraw) / \(pointsLoss)"),
-            ("Tiebreaker", tiebreaker.rawValue),
-            ("Dates", dateText),
-        ])
+        ]
+        if format != .knockout {
+            rows.append(("Points (W/D/L)", "\(pointsWin) / \(pointsDraw) / \(pointsLoss)"))
+            rows.append(("Tiebreaker", tiebreaker.rawValue))
+        }
+        rows.append(("Dates", dateText))
+        let summary = ReviewSummaryView(rows: rows)
         stack.addArrangedSubview(summary)
 
         let teamsHeader = SectionHeaderLabel("Participating Teams")

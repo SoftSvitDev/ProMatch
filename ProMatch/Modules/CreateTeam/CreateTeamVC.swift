@@ -75,6 +75,18 @@ final class CreateTeamViewController: UIViewController {
         let city = createTeamView.cityField.textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let foundedText = createTeamView.foundedField.textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let founded = Int(foundedText)
+        if !foundedText.isEmpty {
+            let currentYear = Calendar.current.component(.year, from: Date())
+            guard let f = founded, f >= 1850, f <= currentYear else {
+                let alert = UIAlertController(
+                    title: "Invalid year",
+                    message: "Founded year must be between 1850 and \(currentYear).",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                return
+            }
+        }
         let notes = createTeamView.notesView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         let initialsText = initials(from: name)
 

@@ -277,7 +277,7 @@ final class GradientView: UIView {
     }
 }
 
-final class PlayerRowView: UIView {
+final class PlayerRowView: UIControl {
     let jerseyLabel: UILabel = {
         let l = UILabel()
         l.font = Theme.Font.bold(15)
@@ -365,4 +365,198 @@ final class PlayerRowView: UIView {
         snp.makeConstraints { $0.height.equalTo(56) }
     }
     required init?(coder: NSCoder) { fatalError() }
+}
+
+final class PlayerDetailView: UIView {
+    let navBar = NavBarView(title: "Player")
+
+    private let scrollView: UIScrollView = {
+        let s = UIScrollView()
+        s.alwaysBounceVertical = true
+        s.showsVerticalScrollIndicator = false
+        return s
+    }()
+    private let contentView = UIView()
+
+    private let avatarView: UIView = {
+        let v = UIView()
+        v.layer.cornerRadius = 40
+        return v
+    }()
+    private let initialsLabel: UILabel = {
+        let l = UILabel()
+        l.font = Theme.Font.bold(32)
+        l.textColor = .white
+        l.textAlignment = .center
+        return l
+    }()
+    private let nameLabel: UILabel = {
+        let l = UILabel()
+        l.font = Theme.Font.bold(22)
+        l.textColor = Theme.Color.textPrimary
+        l.textAlignment = .center
+        return l
+    }()
+    private let nicknameLabel: UILabel = {
+        let l = UILabel()
+        l.font = Theme.Font.regular(14)
+        l.textColor = Theme.Color.textSecondary
+        l.textAlignment = .center
+        return l
+    }()
+    private let teamLabel: UILabel = {
+        let l = UILabel()
+        l.font = Theme.Font.semibold(13)
+        l.textColor = Theme.Color.textSecondary
+        l.textAlignment = .center
+        return l
+    }()
+    private var positionPill: PillLabel?
+
+    private let infoCard = CardView()
+    private let infoStack: UIStackView = {
+        let s = UIStackView()
+        s.axis = .vertical
+        s.spacing = 0
+        return s
+    }()
+
+    let deleteButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("Delete Player", for: .normal)
+        b.setTitleColor(Theme.Color.loss, for: .normal)
+        b.titleLabel?.font = Theme.Font.semibold(15)
+        b.backgroundColor = Theme.Color.surface
+        b.layer.cornerRadius = Theme.Metric.cardRadius
+        return b
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = Theme.Color.background
+        setupUI()
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    private func setupUI() {
+        addSubview(navBar)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        avatarView.addSubview(initialsLabel)
+        contentView.addSubview(avatarView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(nicknameLabel)
+        contentView.addSubview(teamLabel)
+        contentView.addSubview(infoCard)
+        infoCard.addSubview(infoStack)
+        contentView.addSubview(deleteButton)
+
+        navBar.snp.makeConstraints { make in
+            make.top.equalTo(safeTop)
+            make.leading.trailing.equalToSuperview()
+        }
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+        avatarView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.centerX.equalToSuperview()
+            make.size.equalTo(80)
+        }
+        initialsLabel.snp.makeConstraints { $0.center.equalToSuperview() }
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(avatarView.snp.bottom).offset(14)
+            make.centerX.equalToSuperview()
+            make.leading.greaterThanOrEqualToSuperview().offset(24)
+            make.trailing.lessThanOrEqualToSuperview().offset(-24)
+        }
+        nicknameLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.centerX.equalToSuperview()
+        }
+        teamLabel.snp.makeConstraints { make in
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(2)
+            make.centerX.equalToSuperview()
+        }
+        infoCard.snp.makeConstraints { make in
+            make.top.equalTo(teamLabel.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(24)
+        }
+        infoStack.snp.makeConstraints { $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)) }
+        deleteButton.snp.makeConstraints { make in
+            make.top.equalTo(infoCard.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(Theme.Metric.buttonHeight)
+            make.bottom.equalToSuperview().offset(-24)
+        }
+    }
+
+    func configure(player: Player, team: Team) {
+        avatarView.backgroundColor = team.color
+        initialsLabel.text = player.initials
+        nameLabel.text = player.fullName
+        if let nick = player.nickname, !nick.isEmpty {
+            nicknameLabel.text = "\u{201C}\(nick)\u{201D}"
+            nicknameLabel.isHidden = false
+        } else {
+            nicknameLabel.isHidden = true
+        }
+        teamLabel.text = team.name
+
+        positionPill?.removeFromSuperview()
+        let pill = PillLabel(text: player.position.rawValue,
+                             textColor: .black,
+                             background: player.position.pillColor,
+                             fontSize: 12)
+        contentView.addSubview(pill)
+        pill.snp.makeConstraints { make in
+            make.top.equalTo(avatarView.snp.top).offset(-4)
+            make.leading.equalTo(avatarView.snp.trailing).offset(-8)
+            make.height.equalTo(22)
+        }
+        positionPill = pill
+
+        infoStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        addInfoRow("Position", player.position.rawValue)
+        addInfoRow("Jersey", "#\(player.jerseyNumber)")
+        addInfoRow("Preferred foot", player.preferredFoot.rawValue)
+        if let h = player.heightCm { addInfoRow("Height", "\(h) cm") }
+        if let w = player.weightKg { addInfoRow("Weight", "\(w) kg") }
+        if let d = player.birthDate {
+            let f = DateFormatter(); f.dateStyle = .medium
+            addInfoRow("Birth date", f.string(from: d))
+        }
+    }
+
+    private func addInfoRow(_ key: String, _ value: String) {
+        if !infoStack.arrangedSubviews.isEmpty {
+            let line = UIView()
+            line.backgroundColor = Theme.Color.divider
+            line.snp.makeConstraints { $0.height.equalTo(0.5) }
+            infoStack.addArrangedSubview(line)
+        }
+        let row = UIView()
+        let k = UILabel()
+        k.text = key; k.font = Theme.Font.regular(14); k.textColor = Theme.Color.textSecondary
+        let v = UILabel()
+        v.text = value; v.font = Theme.Font.semibold(14); v.textColor = Theme.Color.textPrimary
+        v.textAlignment = .right
+        row.addSubview(k); row.addSubview(v)
+        k.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        v.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.leading.greaterThanOrEqualTo(k.snp.trailing).offset(8)
+        }
+        row.snp.makeConstraints { $0.height.equalTo(44) }
+        infoStack.addArrangedSubview(row)
+    }
 }

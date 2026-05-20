@@ -19,6 +19,9 @@ final class ProfileViewController: UIViewController {
         profileView.appearanceRow.addTarget(self, action: #selector(chooseAppearance), for: .touchUpInside)
         profileView.notificationsSwitch.addTarget(self, action: #selector(toggleNotifications), for: .valueChanged)
         profileView.rateUsRow.addTarget(self, action: #selector(rateUs), for: .touchUpInside)
+        profileView.defaultFormationRow.addTarget(self, action: #selector(chooseFormation), for: .touchUpInside)
+        profileView.privacyRow.addTarget(self, action: #selector(openPrivacy), for: .touchUpInside)
+        profileView.termsRow.addTarget(self, action: #selector(openTerms), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +38,7 @@ final class ProfileViewController: UIViewController {
         profileView.applyUserName(SettingsStore.shared.userName)
         profileView.applyAppearance(SettingsStore.shared.themeMode.displayName)
         profileView.applyNotifications(enabled: SettingsStore.shared.notificationsEnabled)
+        profileView.defaultFormationRow.valueLabel.text = SettingsStore.shared.defaultFormation
     }
 
     @objc private func editName() {
@@ -121,6 +125,47 @@ final class ProfileViewController: UIViewController {
         if let scene = view.window?.windowScene {
             AppStore.requestReview(in: scene)
         }
+    }
+
+    @objc private func chooseFormation() {
+        let sheet = UIAlertController(title: "Default Formation", message: nil, preferredStyle: .actionSheet)
+        let current = SettingsStore.shared.defaultFormation
+        for formation in SettingsStore.formations {
+            let title = formation == current ? "\u{2713} \(formation)" : formation
+            sheet.addAction(UIAlertAction(title: title, style: .default) { _ in
+                SettingsStore.shared.defaultFormation = formation
+            })
+        }
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        if let popover = sheet.popoverPresentationController {
+            popover.sourceView = profileView.defaultFormationRow
+            popover.sourceRect = profileView.defaultFormationRow.bounds
+        }
+        present(sheet, animated: true)
+    }
+
+    @objc private func openPrivacy() {
+        let raw = RemoteConfigService.shared.getString(for: .tpi008dx)
+        openLegal(rawURL: raw, title: "Privacy Policy")
+    }
+
+    @objc private func openTerms() {
+        let raw = RemoteConfigService.shared.getString(for: .fe3xr4io0q8yllz2)
+        openLegal(rawURL: raw, title: "Terms of Use")
+    }
+
+    private func openLegal(rawURL: String, title: String) {
+        let trimmed = rawURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmed.isEmpty, let url = URL(string: trimmed), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+            return
+        }
+        let alert = UIAlertController(
+            title: title + " unavailable",
+            message: "The link isn’t configured yet. Please try again later.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 

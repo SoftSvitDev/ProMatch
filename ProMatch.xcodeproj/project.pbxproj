@@ -48,6 +48,8 @@
 		ED1EECE22FB3780D002B3BF6 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */; };
 		ED1EECE42FB37F66002B3BF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */; };
 		ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE52FB384FB002B3BF6 /* UIView.swift */; };
+		EDF89B022FBD9F4E00FFAB33 /* PlayersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF89B012FBD9F4B00FFAB33 /* PlayersVC.swift */; };
+		EDF89B052FBD9F5B00FFAB33 /* PlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF89B042FBD9F5B00FFAB33 /* PlayersView.swift */; };
 		F10582A383FE56F186667416 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8740F08E98596A9330797B /* DataStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED1EECE52FB384FB002B3BF6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		EDF89B012FBD9F4B00FFAB33 /* PlayersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersVC.swift; sourceTree = "<group>"; };
+		EDF89B042FBD9F5B00FFAB33 /* PlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +198,7 @@
 		ED1EEC9A2FB36A5F002B3BF6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EDF89B002FBD9F4600FFAB33 /* Players */,
 				ED1EECD02FB372F1002B3BF6 /* AddPlayer */,
 				ED1EECCA2FB371E3002B3BF6 /* PlayerCard */,
 				ED1EECC42FB3716E002B3BF6 /* Onboarding */,
@@ -412,6 +417,23 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		EDF89B002FBD9F4600FFAB33 /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				EDF89B032FBD9F5800FFAB33 /* Views */,
+				EDF89B012FBD9F4B00FFAB33 /* PlayersVC.swift */,
+			);
+			path = Players;
+			sourceTree = "<group>";
+		};
+		EDF89B032FBD9F5800FFAB33 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EDF89B042FBD9F5B00FFAB33 /* PlayersView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -502,6 +524,7 @@
 				ED1EECD22FB372F7002B3BF6 /* AddPlayerVC.swift in Sources */,
 				ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */,
 				ED1EECE22FB3780D002B3BF6 /* RemoteConfigService.swift in Sources */,
+				EDF89B022FBD9F4E00FFAB33 /* PlayersVC.swift in Sources */,
 				ED1EECA92FB36CFD002B3BF6 /* TeamsView.swift in Sources */,
 				ED1EECCF2FB371FB002B3BF6 /* PlayerCardView.swift in Sources */,
 				ED1EECD52FB37307002B3BF6 /* AddPlayerView.swift in Sources */,
@@ -518,6 +541,7 @@
 				5C99ED3E3E1D552AB6A42BCD /* Theme.swift in Sources */,
 				B36F72EABD125C899385CBED /* PrimaryButton.swift in Sources */,
 				B1C4FC736A8C5FBF87A3E252 /* CardView.swift in Sources */,
+				EDF89B052FBD9F5B00FFAB33 /* PlayersView.swift in Sources */,
 				79742C4D2F18515A80415874 /* InputField.swift in Sources */,
 				7627F0A40DE85BA6AC5B207E /* Models.swift in Sources */,
 				AD5F490976B9516A9046DFFE /* SoccerBallView.swift in Sources */,
