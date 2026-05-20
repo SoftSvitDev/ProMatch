@@ -16,7 +16,41 @@ final class TournamentsView: UIView {
         b.tintColor = Theme.Color.textPrimary
         b.backgroundColor = Theme.Color.surface
         b.layer.cornerRadius = 18
+        b.isHidden = true
         return b
+    }()
+
+    let searchField: PaddedTextField = {
+        let tf = PaddedTextField()
+        tf.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        tf.attributedPlaceholder = NSAttributedString(
+            string: "Search tournaments...",
+            attributes: [.foregroundColor: Theme.Color.textTertiary, .font: Theme.Font.regular(14)])
+        tf.font = Theme.Font.regular(14)
+        tf.textColor = Theme.Color.textPrimary
+        tf.returnKeyType = .search
+        return tf
+    }()
+
+    lazy var searchBar: UIView = {
+        let container = UIView()
+        container.backgroundColor = Theme.Color.surface
+        container.layer.cornerRadius = 12
+        let icon = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        icon.tintColor = Theme.Color.textTertiary
+        icon.contentMode = .scaleAspectFit
+        container.addSubview(icon)
+        container.addSubview(searchField)
+        icon.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(14)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(16)
+        }
+        searchField.snp.makeConstraints { make in
+            make.leading.equalTo(icon.snp.trailing).offset(8)
+            make.trailing.top.bottom.equalToSuperview()
+        }
+        return container
     }()
 
     let scrollView: UIScrollView = {
@@ -85,7 +119,7 @@ final class TournamentsView: UIView {
     required init?(coder: NSCoder) { fatalError() }
 
     private func setupUI() {
-        [titleLabel, historyButton, scrollView, emptyState, addButton].forEach { addSubview($0) }
+        [titleLabel, historyButton, searchBar, scrollView, emptyState, addButton].forEach { addSubview($0) }
         scrollView.addSubview(contentStack)
     }
 
@@ -99,8 +133,13 @@ final class TournamentsView: UIView {
             make.trailing.equalToSuperview().offset(-24)
             make.size.equalTo(36)
         }
-        scrollView.snp.makeConstraints { make in
+        searchBar.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(40)
+        }
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(12)
             make.leading.trailing.bottom.equalToSuperview()
         }
         contentStack.snp.makeConstraints { make in

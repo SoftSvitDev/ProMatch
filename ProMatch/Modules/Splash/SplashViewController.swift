@@ -47,9 +47,8 @@ final class SplashViewController: UIViewController {
             make.size.equalTo(140)
         }
         ballView.snp.makeConstraints { $0.edges.equalToSuperview() }
-
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(ballContainer.snp.bottom).offset(32)
+            make.top.equalTo(ballView.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
         }
         subtitleLabel.snp.makeConstraints { make in

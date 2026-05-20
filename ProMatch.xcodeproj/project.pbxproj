@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EB67B97A6435A7794FFA6BB /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */; };
 		3F0405E49A6D55D3B48F8E8D /* TournamentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA915FD88643502C88AD87BE /* TournamentDetailVC.swift */; };
 		5C99ED3E3E1D552AB6A42BCD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E989282A05700B70C87D1 /* Theme.swift */; };
 		7627F0A40DE85BA6AC5B207E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4857A0166AFD5588B5198D1B /* Models.swift */; };
 		79742C4D2F18515A80415874 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83572C0DDA75A24BCCC3559 /* InputField.swift */; };
+		A73CD92E36CF50C883C0839A /* UIImage+Logo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */; };
+		A8B156F758025AF982ACC922 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */; };
 		AD5F490976B9516A9046DFFE /* SoccerBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A25CD392ABC565D89F488B9 /* SoccerBallView.swift */; };
 		B1C4FC736A8C5FBF87A3E252 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F6B70411C5DC4855BE42B /* CardView.swift */; };
 		B36F72EABD125C899385CBED /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2814CA1390515B99826CD4 /* PrimaryButton.swift */; };
+		BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */; };
+		DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */; };
+		E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */; };
 		ED1EEC922FB3688F002B3BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEC892FB3688F002B3BF6 /* Assets.xcassets */; };
 		ED1EEC942FB3688F002B3BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEC8C2FB3688F002B3BF6 /* LaunchScreen.storyboard */; };
 		ED1EEC962FB3688F002B3BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */; };
@@ -43,21 +49,22 @@
 		ED1EECE42FB37F66002B3BF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */; };
 		ED1EECE62FB38500002B3BF6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1EECE52FB384FB002B3BF6 /* UIView.swift */; };
 		F10582A383FE56F186667416 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8740F08E98596A9330797B /* DataStore.swift */; };
-		A73CD92E36CF50C883C0839A /* UIImage+Logo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */; };
-		A8B156F758025AF982ACC922 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */; };
-		DB347101EF605A8882D23B7C /* ScoreEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */; };
-		E07A305C1BAB5546B6BCD38F /* ScoreEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */; };
-		BB088A64FE1A5F6DB592F4EE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */; };
-		2EB67B97A6435A7794FFA6BB /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryView.swift; sourceTree = "<group>"; };
 		167F6B70411C5DC4855BE42B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1C3E989282A05700B70C87D1 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		2A25CD392ABC565D89F488B9 /* SoccerBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoccerBallView.swift; sourceTree = "<group>"; };
+		350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
 		4857A0166AFD5588B5198D1B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Logo.swift"; sourceTree = "<group>"; };
+		93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AE2814CA1390515B99826CD4 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		BA915FD88643502C88AD87BE /* TournamentDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TournamentDetailVC.swift; sourceTree = "<group>"; };
+		CE8740F08E98596A9330797B /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryVC.swift; sourceTree = "<group>"; };
 		E83572C0DDA75A24BCCC3559 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		ED1EEC702FB36889002B3BF6 /* ProMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1EEC882FB3688F002B3BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,13 +93,6 @@
 		ED1EECE12FB37807002B3BF6 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		ED1EECE32FB37F66002B3BF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED1EECE52FB384FB002B3BF6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		CE8740F08E98596A9330797B /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
-		668DE4C7A7FB5AB3BEC0B531 /* UIImage+Logo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Logo.swift"; sourceTree = "<group>"; };
-		1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
-		CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryVC.swift; sourceTree = "<group>"; };
-		08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntryView.swift; sourceTree = "<group>"; };
-		93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		350099B7EAAA5E24A49B74AF /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +109,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19283F142C2F54FC8B6434A6 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		3F0ED185B9DF59738F104EF0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		77CA057A28985A7FAC4B2220 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +142,15 @@
 				4857A0166AFD5588B5198D1B /* Models.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CD871F5946735EE5880A2810 /* ScoreEntry */ = {
+			isa = PBXGroup;
+			children = (
+				3F0ED185B9DF59738F104EF0 /* Views */,
+				CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */,
+			);
+			path = ScoreEntry;
 			sourceTree = "<group>";
 		};
 		ED1EEC672FB36889002B3BF6 = {
@@ -385,31 +410,6 @@
 				1EB4D9FE3FBE5243B76215B7 /* SettingsStore.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		CD871F5946735EE5880A2810 /* ScoreEntry */ = {
-			isa = PBXGroup;
-			children = (
-				3F0ED185B9DF59738F104EF0 /* Views */,
-				CF02BAEC48035E83A6A4DCB1 /* ScoreEntryVC.swift */,
-			);
-			path = ScoreEntry;
-			sourceTree = "<group>";
-		};
-		3F0ED185B9DF59738F104EF0 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				08090F8BA93D59C1BDBBBAF4 /* ScoreEntryView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		19283F142C2F54FC8B6434A6 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				93FE1A2405D555C2AEBBCBF7 /* SplashViewController.swift */,
-			);
-			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

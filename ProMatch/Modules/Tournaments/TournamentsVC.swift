@@ -3,12 +3,17 @@ import SnapKit
 
 final class TournamentsViewController: UIViewController {
     private var tournamentsView: TournamentsView { view as! TournamentsView }
+    private var allTournaments: [Tournament] = []
+    private var searchQuery: String = ""
 
     override func loadView() { view = TournamentsView() }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableKeyboardDismissal()
         tournamentsView.addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+        tournamentsView.searchField.addTarget(self, action: #selector(searchChanged), for: .editingChanged)
+        tournamentsView.scrollView.keyboardDismissMode = .onDrag
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
                                                name: .tournamentsDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reload),
@@ -20,16 +25,49 @@ final class TournamentsViewController: UIViewController {
         reload()
     }
 
-    @objc private func reload() {
-        tournamentsView.contentStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        let tournaments = DataStore.shared.tournaments
-        let live = tournaments.filter { $0.status == .live }
-        let upcoming = tournaments.filter { $0.status == .scheduled }
-        let completed = tournaments.filter { $0.status == .completed }
+    @objc private func searchChanged() {
+        searchQuery = tournamentsView.searchField.text ?? ""
+        render()
+    }
 
-        tournamentsView.emptyState.isHidden = !tournaments.isEmpty
+    @objc private func reload() {
+        allTournaments = DataStore.shared.tournaments
+        render()
+    }
+
+    private func render() {
+        tournamentsView.contentStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        let filtered: [Tournament]
+        if searchQuery.trimmingCharacters(in: .whitespaces).isEmpty {
+            filtered = allTournaments
+        } else {
+            let q = searchQuery.lowercased()
+            filtered = allTournaments.filter {
+                $0.name.lowercased().contains(q) || $0.format.rawValue.lowercased().contains(q)
+            }
+        }
+
+        let hasAnyTournaments = !allTournaments.isEmpty
+        tournamentsView.emptyState.isHidden = hasAnyTournaments
+
+        if hasAnyTournaments && filtered.isEmpty {
+            let label = UILabel()
+            label.text = "No tournaments match \"\(searchQuery)\""
+            label.font = Theme.Font.regular(14)
+            label.textColor = Theme.Color.textSecondary
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            tournamentsView.contentStack.addArrangedSubview(label)
+            return
+        }
+
+        let live = filtered.filter { $0.status == .live }
+        let upcoming = filtered.filter { $0.status == .scheduled }
+        let completed = filtered.filter { $0.status == .completed }
 
         func add(_ section: String, _ items: [Tournament], color: UIColor) {
+            guard !items.isEmpty else { return }
             let header = SectionLabelView(section, color: color)
             tournamentsView.contentStack.addArrangedSubview(header)
             tournamentsView.contentStack.setCustomSpacing(8, after: header)
@@ -42,9 +80,9 @@ final class TournamentsViewController: UIViewController {
             }
         }
 
-        if !live.isEmpty { add("Live Now", live, color: Theme.Color.accent) }
-        if !upcoming.isEmpty { add("Upcoming", upcoming, color: Theme.Color.textSecondary) }
-        if !completed.isEmpty { add("Completed", completed, color: Theme.Color.textSecondary) }
+        add("Live Now", live, color: Theme.Color.accent)
+        add("Upcoming", upcoming, color: Theme.Color.textSecondary)
+        add("Completed", completed, color: Theme.Color.textSecondary)
     }
 
     @objc private func tournamentTapped(_ sender: TournamentRowView) {
