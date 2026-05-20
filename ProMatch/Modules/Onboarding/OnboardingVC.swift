@@ -14,25 +14,31 @@ final class OnboardingViewController: UIViewController {
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             title: "Manage your squad",
-            subtitle: "Build rosters, assign positions, track every player",
-            illustration: { SoccerBallView() }
+            subtitle: "Build rosters, assign positions, track every\nplayer",
+            illustration: { OnboardingViewController.makeImageView(named: "onb1") }
         ),
         OnboardingPage(
             title: "Run your tournaments",
-            subtitle: "Round-robin, knockout, or group stage — set it up in seconds",
-            illustration: { TournamentIllustrationView() }
+            subtitle: "Round-robin, knockout, or group stage — set it\nup in seconds",
+            illustration: { OnboardingViewController.makeImageView(named: "onb2") }
         ),
         OnboardingPage(
             title: "Track every match",
-            subtitle: "Live standings, scorers, and match history at your fingertips",
-            illustration: { SoccerBallView() }
+            subtitle: "Live standings, scorers, and match history at your\nfingertips",
+            illustration: { OnboardingViewController.makeImageView(named: "onb3") }
         ),
         OnboardingPage(
             title: "You're all set",
-            subtitle: "Start by creating your first team",
-            illustration: { TournamentIllustrationView() }
+            subtitle: "Start by creating your first\nteam",
+            illustration: { OnboardingViewController.makeImageView(named: "onb4") }
         ),
     ]
+
+    private static func makeImageView(named name: String) -> UIImageView {
+        let iv = UIImageView(image: UIImage(named: name))
+        iv.contentMode = .scaleAspectFit
+        return iv
+    }
 
     var onFinish: (() -> Void)?
 
