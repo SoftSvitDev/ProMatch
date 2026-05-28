@@ -44,6 +44,7 @@ final class CreateTeamView: UIView {
         let v = UIView()
         v.backgroundColor = Theme.Color.accent
         v.layer.cornerRadius = 12
+        v.isUserInteractionEnabled = false
         let iv = UIImageView(image: UIImage(systemName: "camera.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 10, weight: .semibold)))
         iv.tintColor = Theme.Color.onAccent
         v.addSubview(iv)
